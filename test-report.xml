@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/app/todos/todos.component.spec.ts">
-    <testCase name="TodosComponent should render a list of todos" duration="28"/>
-    <testCase name="TodosComponent should add todos" duration="22"/>
+  <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/features/todos/components/todos/todos.component.spec.ts">
+    <testCase name="TodosComponent should render a list of todos" duration="33"/>
+    <testCase name="TodosComponent should add todos" duration="20"/>
   </file>
   <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/app/home/home.component.spec.ts">
-    <testCase name="HomeComponent should create" duration="26"/>
+    <testCase name="HomeComponent should create" duration="19"/>
   </file>
   <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/app/containers/app.component.spec.ts">
-    <testCase name="AppComponent should render a list of talks" duration="43"/>
+    <testCase name="AppComponent should render a list of talks" duration="232"/>
   </file>
 </testExecutions>

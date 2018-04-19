@@ -12,14 +12,14 @@ import { HomeComponent } from "./home/home.component";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
-import { environment } from "../environments/environment";
+import { environment } from "../config/environments/environment";
 import { reducers, CustomSerializer } from './store';
 
 const ROUTES: Routes = [
   { path: "", component: HomeComponent },
   {
-    path: "products",
-    loadChildren: "./todos/todos.module#TodosModule"
+    path: "todos",
+    loadChildren: "../features/todos/todos.module#TodosModule"
   }
 ];
 

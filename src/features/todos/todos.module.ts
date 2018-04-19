@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { TodosComponent } from './todos.component';
+import { TodosComponent } from './components/todos/todos.component';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 

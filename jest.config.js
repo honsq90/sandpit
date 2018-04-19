@@ -11,7 +11,7 @@ module.exports = {
     '__TRANSFORM_HTML__': true
   },
   testRegex: '\\.spec\\.ts$',
-  setupTestFrameworkScriptFile: '<rootDir>/src/setupJest.ts',
+  setupTestFrameworkScriptFile: '<rootDir>/src/config/setupJest.ts',
   transform: {
     '^.+\\.(ts|html)$': '<rootDir>/node_modules/jest-preset-angular/preprocessor.js',
   },
@@ -19,10 +19,9 @@ module.exports = {
     'node_modules/(?!@ngrx)'
   ],
   collectCoverageFrom: [
-    'src/app/**/*.{ts}',
+    'src/**/*.{ts}',
+    '!src/config/**/*.{ts}',
     '!src/app/**/*.{js}',
-    '!src/app/environment/*.{ts}',
-    '!src/app/language/*.{ts}',
     '!src/app/**/*.module.{ts}',
     '!src/app/**/*.interface.{ts}',
     '!src/app/**/*.state.{ts}',
@@ -42,6 +41,5 @@ module.exports = {
   testResultsProcessor: 'jest-sonar-reporter',
   moduleNameMapper: {
     "app/(.*)": "<rootDir>/src/app/$1",
-    "@common/(.*)": "<rootDir>/src/app/common/$1",
   }
 };
