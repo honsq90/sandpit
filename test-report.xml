@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
+  <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/app/todos/todos.component.spec.ts">
+    <testCase name="TodosComponent should render a list of todos" duration="32"/>
+    <testCase name="TodosComponent should add todos" duration="28"/>
+  </file>
+  <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/app/app.component.spec.ts">
+    <testCase name="AppComponent should render a list of talks" duration="24"/>
+  </file>
 </testExecutions>

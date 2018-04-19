@@ -12,9 +12,7 @@ export interface Todo {
 })
 export class TodosComponent {
 
-  todos: Todo[] = [
-    { text: 'hello' },
-  ];
+  todos: Todo[] = [];
 
   todoForm: FormGroup;
 
