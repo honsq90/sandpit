@@ -1,7 +1,7 @@
 <form [formGroup]="todoForm">
   <input type="text" formControlName="text">
   <div>
-    <button (click)="addTodo()">Add Todo</button>
+    <button (click)="onClick()">Add Todo</button>
   </div>
 </form>
 
@@ -9,6 +9,6 @@
 <div>
   Todos:
   <ul>
-    <li *ngFor="let todo of todos">{{todo.text}}</li>
+    <li *ngFor="let todo of (todos$ | async)">{{todo.text}}</li>
   </ul>
 </div>

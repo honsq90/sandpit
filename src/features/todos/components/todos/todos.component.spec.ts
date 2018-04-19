@@ -21,34 +21,34 @@ describe('TodosComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should render a list of todos', () => {
-    component.todos = [
-      {text: 'hello'},
-      {text: 'hello2'},
-    ]
-    fixture.detectChanges();
+  // it('should render a list of todos', () => {
+  //   component.todos = [
+  //     {text: 'hello'},
+  //     {text: 'hello2'},
+  //   ]
+  //   fixture.detectChanges();
 
-    const s = fixture.debugElement.nativeElement;
-    const todos = s.querySelectorAll("li");
+  //   const s = fixture.debugElement.nativeElement;
+  //   const todos = s.querySelectorAll("li");
 
-    expect(todos.length).toEqual(2);
-    expect(todos[0].innerHTML).toEqual("hello");
-    expect(todos[1].innerHTML).toEqual("hello2");
-  });
+  //   expect(todos.length).toEqual(2);
+  //   expect(todos[0].innerHTML).toEqual("hello");
+  //   expect(todos[1].innerHTML).toEqual("hello2");
+  // });
 
-  it('should add todos', () => {
+  // it('should add todos', () => {
 
-    fixture.detectChanges();
+  //   fixture.detectChanges();
 
-    const s = fixture.debugElement.nativeElement;
+  //   const s = fixture.debugElement.nativeElement;
 
-    component.todoForm.controls['text'].setValue('blah');
+  //   component.todoForm.controls['text'].setValue('blah');
 
-    component.addTodo();
+  //   component.addTodo();
 
-    fixture.detectChanges();
-    expect(component.todos.length).toEqual(1);
-    expect(component.todos[0]).toEqual({text: 'blah'});
+  //   fixture.detectChanges();
+  //   expect(component.todos.length).toEqual(1);
+  //   expect(component.todos[0]).toEqual({text: 'blah'});
 
-  });
+  // });
 });
