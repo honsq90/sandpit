@@ -38,7 +38,6 @@ module.exports = {
     '/dist/',
     'src/app/*.{js}'
   ],
-  testResultsProcessor: 'jest-sonar-reporter',
   moduleNameMapper: {
     "app/(.*)": "<rootDir>/src/app/$1",
   }
