@@ -2,27 +2,27 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { Routes, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-
-import { TodosComponent } from "./components/todos/todos.component";
-
-import * as fromStore from "./store";
 import { StoreModule } from "@ngrx/store";
+
+import * as fromComponents from "./components";
+import * as fromContainers from "./containers";
+import * as fromStore from "./store";
 
 export const PRODUCT_ROUTES: Routes = [
   {
     path: "",
-    component: TodosComponent,
+    component: fromContainers.TodosContainer,
     children: []
   }
 ];
 @NgModule({
-  declarations: [TodosComponent],
-  exports: [TodosComponent],
+  declarations: [...fromComponents.components, ...fromContainers.containers],
+  exports: [...fromComponents.components, ...fromContainers.containers],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(PRODUCT_ROUTES),
-    StoreModule.forFeature('todos', fromStore.reducers),
+    StoreModule.forFeature("todos", fromStore.reducers)
   ],
   providers: [],
   bootstrap: []

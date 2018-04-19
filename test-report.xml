@@ -1,125 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/features/todos/components/todos/todos.component.spec.ts">
-    <testCase name="TodosComponent should render a list of todos" duration="274">
-      <failure message="Error: StaticInjectorError(DynamicTestModule)[TodosComponent -&gt; Store]: "><![CDATA[Error: StaticInjectorError(DynamicTestModule)[TodosComponent -> Store]: 
-  StaticInjectorError(Platform: core)[TodosComponent -> Store]: 
-    NullInjectorError: No provider for Store!
-    at _NullInjector.Object.<anonymous>._NullInjector.get (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:39:6)
-    at resolveToken (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:1338:24)
-    at tryResolveToken (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:350:14)
-    at StaticInjector.Object.<anonymous>.StaticInjector.get (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:185:17)
-    at resolveToken (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:1338:24)
-    at tryResolveToken (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:350:14)
-    at StaticInjector.Object.<anonymous>.StaticInjector.get (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:185:17)
-    at resolveNgModuleDep (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:10892:25)
-    at NgModuleRef_.Object.<anonymous>.NgModuleRef_.get (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:12125:16)
-    at resolveDep (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:12615:45)
-    at createClass (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/provider.js:324:9)
-    at createDirectiveInstance (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/provider.js:169:37)
-    at createViewNodes (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/view.js:331:49)
-    at createRootView (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:13669:5)
-    at callWithDebugContext (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/services.js:864:6)
-    at Object.debugCreateRootView [as createRootView] (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:14377:12)
-    at ComponentFactory_.Object.<anonymous>.ComponentFactory_.create (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/refs.js:121:44)
-    at initComponent (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/testing/src/test_bed.js:569:24)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:388:26)
-    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/proxy.js:128:39)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:387:32)
-    at Object.onInvoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/zone/ng_zone.js:594:10)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:387:32)
-    at Zone.Object.<anonymous>.Zone.run (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:138:43)
-    at NgZone.Object.<anonymous>.NgZone.run (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:4604:69)
-    at TestBed.Object.<anonymous>.TestBed.createComponent (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/testing/src/test_bed.js:572:6)
-    at Function.Object.<anonymous>.TestBed.createComponent (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core-testing.umd.js:871:29)
-    at /Users/sqhon/Documents/dev/ngrx-practice/src/features/todos/components/todos/todos.component.spec.ts:19:23
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:388:26)
-    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/proxy.js:128:39)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:387:32)
-    at Zone.Object.<anonymous>.Zone.run (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:138:43)
-    at Object.testBody.length (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-zone-patch/index.js:50:27)
-    at Object.asyncFn (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/jasmine_async.js:51:37)
-    at resolve (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:52:12)
-    at new Promise (<anonymous>)
-    at mapper (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:39:19)
-    at promise.then (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:73:82)
-    at <anonymous>]]></failure>
-      <failure message="TypeError: Cannot set property &apos;todos&apos; of undefined"><![CDATA[TypeError: Cannot set property 'todos' of undefined
-    at /Users/sqhon/Documents/dev/ngrx-practice/src/features/todos/components/todos/todos.component.spec.ts:25:15
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:388:26)
-    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/proxy.js:128:39)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:387:32)
-    at Zone.Object.<anonymous>.Zone.run (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:138:43)
-    at Object.testBody.length (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-zone-patch/index.js:50:27)
-    at Object.asyncFn (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/jasmine_async.js:82:37)
-    at resolve (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:52:12)
-    at new Promise (<anonymous>)
-    at mapper (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:39:19)
-    at promise.then (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:73:82)
-    at <anonymous>]]></failure>
-    </testCase>
-    <testCase name="TodosComponent should add todos" duration="28">
-      <failure message="Error: StaticInjectorError(DynamicTestModule)[TodosComponent -&gt; Store]: "><![CDATA[Error: StaticInjectorError(DynamicTestModule)[TodosComponent -> Store]: 
-  StaticInjectorError(Platform: core)[TodosComponent -> Store]: 
-    NullInjectorError: No provider for Store!
-    at _NullInjector.Object.<anonymous>._NullInjector.get (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:39:6)
-    at resolveToken (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:1338:24)
-    at tryResolveToken (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:350:14)
-    at StaticInjector.Object.<anonymous>.StaticInjector.get (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:185:17)
-    at resolveToken (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:1338:24)
-    at tryResolveToken (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:350:14)
-    at StaticInjector.Object.<anonymous>.StaticInjector.get (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/di/injector.js:185:17)
-    at resolveNgModuleDep (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:10892:25)
-    at NgModuleRef_.Object.<anonymous>.NgModuleRef_.get (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:12125:16)
-    at resolveDep (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:12615:45)
-    at createClass (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/provider.js:324:9)
-    at createDirectiveInstance (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/provider.js:169:37)
-    at createViewNodes (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/view.js:331:49)
-    at createRootView (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:13669:5)
-    at callWithDebugContext (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/services.js:864:6)
-    at Object.debugCreateRootView [as createRootView] (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:14377:12)
-    at ComponentFactory_.Object.<anonymous>.ComponentFactory_.create (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/view/refs.js:121:44)
-    at initComponent (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/testing/src/test_bed.js:569:24)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:388:26)
-    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/proxy.js:128:39)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:387:32)
-    at Object.onInvoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/src/zone/ng_zone.js:594:10)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:387:32)
-    at Zone.Object.<anonymous>.Zone.run (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:138:43)
-    at NgZone.Object.<anonymous>.NgZone.run (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core.umd.js:4604:69)
-    at TestBed.Object.<anonymous>.TestBed.createComponent (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/packages/core/esm5/testing/src/test_bed.js:572:6)
-    at Function.Object.<anonymous>.TestBed.createComponent (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/@angular/core/bundles/core-testing.umd.js:871:29)
-    at /Users/sqhon/Documents/dev/ngrx-practice/src/features/todos/components/todos/todos.component.spec.ts:19:23
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:388:26)
-    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/proxy.js:128:39)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:387:32)
-    at Zone.Object.<anonymous>.Zone.run (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:138:43)
-    at Object.testBody.length (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-zone-patch/index.js:50:27)
-    at Object.asyncFn (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/jasmine_async.js:51:37)
-    at resolve (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:52:12)
-    at new Promise (<anonymous>)
-    at mapper (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:39:19)
-    at promise.then (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:73:82)
-    at <anonymous>]]></failure>
-      <failure message="TypeError: Cannot read property &apos;detectChanges&apos; of undefined"><![CDATA[TypeError: Cannot read property 'detectChanges' of undefined
-    at /Users/sqhon/Documents/dev/ngrx-practice/src/features/todos/components/todos/todos.component.spec.ts:41:13
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:388:26)
-    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/proxy.js:128:39)
-    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:387:32)
-    at Zone.Object.<anonymous>.Zone.run (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/zone.js/dist/zone.js:138:43)
-    at Object.testBody.length (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-zone-patch/index.js:50:27)
-    at Object.asyncFn (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/jasmine_async.js:82:37)
-    at resolve (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:52:12)
-    at new Promise (<anonymous>)
-    at mapper (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:39:19)
-    at promise.then (/Users/sqhon/Documents/dev/ngrx-practice/node_modules/jest-jasmine2/build/queue_runner.js:73:82)
-    at <anonymous>]]></failure>
-    </testCase>
-  </file>
   <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/app/home/home.component.spec.ts">
-    <testCase name="HomeComponent should create" duration="25"/>
+    <testCase name="HomeComponent should create" duration="33"/>
+  </file>
+  <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/features/todos/components/todo-list/todo-list.component.spec.ts">
+    <testCase name="TodoListComponent should render a list of todos" duration="32"/>
+  </file>
+  <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/features/todos/components/todo-form/todo-form.component.spec.ts">
+    <testCase name="TodoFormComponent should render a form" duration="31"/>
+  </file>
+  <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/features/todos/containers/todos/todos.container.spec.ts">
+    <testCase name="TodosContainer should receive todo stream from store" duration="29"/>
+    <testCase name="TodosContainer should render todo-list and todo-form" duration="16"/>
   </file>
   <file path="/Users/sqhon/Documents/dev/ngrx-practice/src/app/containers/app.component.spec.ts">
-    <testCase name="AppComponent should render a list of talks" duration="42"/>
+    <testCase name="AppComponent should render a list of talks" duration="29"/>
   </file>
 </testExecutions>
