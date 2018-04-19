@@ -10,7 +10,7 @@ module.exports = {
     },
     '__TRANSFORM_HTML__': true
   },
-  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|js)$',
+  testRegex: '\\.spec\\.ts$',
   setupTestFrameworkScriptFile: '<rootDir>/src/setupJest.ts',
   transform: {
     '^.+\\.(ts|html)$': '<rootDir>/node_modules/jest-preset-angular/preprocessor.js',

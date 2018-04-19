@@ -9,7 +9,7 @@
     "test": "jest --coverage",
     "test:coverage": "jest --runInBand --coverage",
     "test:snapshot": "jest --coverage -u",
-    "test:watch": "jest --clearCache && jest --watch --coverage",
+    "test:watch": "jest --clearCache && jest --watchAll --coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -24,6 +24,10 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "@ngrx/effects": "^5.2.0",
+    "@ngrx/router-store": "^5.2.0",
+    "@ngrx/store": "^5.2.0",
+    "@ngrx/store-devtools": "^5.2.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"

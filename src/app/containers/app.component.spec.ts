@@ -26,10 +26,8 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     const s = fixture.debugElement.nativeElement;
-    const appTodos = s.querySelectorAll("app-todos");
     const routerOutlet = s.querySelectorAll("router-outlet");
 
-    expect(appTodos.length).toEqual(1);
     expect(routerOutlet.length).toEqual(1);
   });
 });
