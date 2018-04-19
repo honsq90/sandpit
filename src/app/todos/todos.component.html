@@ -1,3 +1,13 @@
-<ul>
-  <li *ngFor="let todo of todos">{{todo.text}}</li>
-</ul>
+<div>
+  <ul>
+    <li *ngFor="let todo of todos">{{todo.text}}</li>
+  </ul>
+</div>
+
+<form [formGroup]="todoForm">
+  <input type="text" formControlName="text">
+</form>
+
+<div>
+  <button (click)="addTodo()">Add Todo</button>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 export interface Todo {
   text: string;
@@ -9,15 +10,23 @@ export interface Todo {
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css']
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent {
 
   todos: Todo[] = [
     { text: 'hello' },
   ];
 
-  constructor() { }
+  todoForm: FormGroup;
 
-  ngOnInit() {
+  constructor() {
+    this.todoForm = new FormGroup({
+      text: new FormControl('')
+    })
+  }
+
+  addTodo() {
+    this.todos.push(this.todoForm.value)
+    this.todoForm.reset()
   }
 
 }
