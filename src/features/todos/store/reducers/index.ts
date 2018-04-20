@@ -1,15 +1,26 @@
-import { ActionReducerMap, createFeatureSelector } from "@ngrx/store";
+import {
+  ActionReducerMap,
+  createFeatureSelector,
+  createSelector
+} from "@ngrx/store";
 
-import * as fromTodos from "./todos.reducer"
+import * as fromTodos from "./todos.reducer";
+
+export const TODO_FEATURE = "todoFeature";
 
 export interface FeatureState {
-  todos: fromTodos.TodoState;
+  fromTodos: fromTodos.TodoState;
 }
 
 export const reducers: ActionReducerMap<FeatureState> = {
-  todos: fromTodos.reducer,
+  fromTodos: fromTodos.reducer
 };
 
 export const getFeatureState = createFeatureSelector<FeatureState>(
-  'todos'
+  TODO_FEATURE
+);
+
+export const getTodoState = createSelector(
+  getFeatureState,
+  (state: FeatureState) => state.fromTodos
 );

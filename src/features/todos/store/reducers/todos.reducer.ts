@@ -4,13 +4,13 @@ import * as fromActions from "../actions";
 import { BrowserTransferStateModule } from "@angular/platform-browser";
 
 export interface TodoState {
-  todos: Todo[],
+  list: Todo[],
   loading: boolean,
   loaded: boolean,
 }
 
 const initialState: TodoState = {
-  todos: [
+  list: [
     {text: 'hello'},
   ],
   loading: false,
@@ -37,7 +37,7 @@ export function reducer(state: TodoState = initialState, action: fromActions.Tod
     case fromActions.LOAD_TODOS_SUCCESS: {
       return {
         ...state,
-        todos: action.payload,
+        list: action.payload,
         loading: false,
         loaded: true,
       }
