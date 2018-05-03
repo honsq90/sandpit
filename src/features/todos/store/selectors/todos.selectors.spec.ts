@@ -18,7 +18,7 @@ describe("Todos Selectors", () => {
     [TODO_FEATURE]: mockFeatureState
   };
 
-  it("should receive todo stream from store", () => {
+  it("should retrieve the todo list from state", () => {
     expect(todoSelectors.getAllTodos(mockState)).toEqual([
       { text: "hello" }
     ]);

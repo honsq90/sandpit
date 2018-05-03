@@ -10,14 +10,12 @@ export interface TodoState {
 }
 
 const initialState: TodoState = {
-  list: [
-    {text: 'hello'},
-  ],
+  list: [],
   loading: false,
   loaded: false,
 }
 
-export function reducer(state: TodoState = initialState, action: fromActions.TodoAction) {
+export function reducer(state: TodoState = initialState, action: fromActions.TodoAction): TodoState {
   switch(action.type) {
     case fromActions.LOAD_TODOS: {
       return {

@@ -1,1 +1,1 @@
-export * from './todo.actions';
+export * from './todos.actions';

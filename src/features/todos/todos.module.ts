@@ -22,7 +22,7 @@ export const PRODUCT_ROUTES: Routes = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(PRODUCT_ROUTES),
-    StoreModule.forFeature("todos", fromStore.reducers)
+    StoreModule.forFeature(fromStore.TODO_FEATURE, fromStore.reducers)
   ],
   providers: [],
   bootstrap: []
