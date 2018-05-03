@@ -27,4 +27,12 @@ describe("Todos Selectors", () => {
     const expectedState: todoReducer.TodoState = {list: [todo], loaded: false, loading: false}
     expect(reducedState).toEqual(expectedState);
   });
+
+  it("should add todo to list on ADD_TODO", () => {
+    const todo: Todo = { text: "hello" }
+    const initialState: todoReducer.TodoState = {list: [], loaded: false, loading: false}
+    const reducedState = todoReducer.reducer(initialState, new todoActions.AddTodoAction(todo));
+    const expectedState: todoReducer.TodoState = {list: [todo], loaded: false, loading: false}
+    expect(reducedState).toEqual(expectedState);
+  });
 });

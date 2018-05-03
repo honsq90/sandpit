@@ -40,6 +40,16 @@ export function reducer(state: TodoState = initialState, action: fromActions.Tod
         loaded: true,
       }
     }
+
+    case fromActions.ADD_TODO: {
+      return {
+        ...state,
+        list: [
+          ...state.list,
+          action.payload,
+        ],
+      }
+    }
   }
   return state;
 }

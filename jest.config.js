@@ -21,11 +21,12 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts}',
     '!src/config/**/*.{ts}',
-    '!src/app/**/*.{js}',
-    '!src/app/**/*.module.{ts}',
-    '!src/app/**/*.interface.{ts}',
-    '!src/app/**/*.state.{ts}',
-    '!src/app/**/*.entity.{ts}'
+    '!src/**/index.ts',
+    '!src/**/*.{js}',
+    '!src/**/*.module.{ts}',
+    '!src/**/*.interface.{ts}',
+    '!src/**/*.state.{ts}',
+    '!src/**/*.entity.{ts}'
   ],
   moduleFileExtensions: [
     'ts',
