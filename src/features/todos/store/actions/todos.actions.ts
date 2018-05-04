@@ -12,6 +12,7 @@ export class LoadTodosAction implements Action {
 
 export class LoadTodosFailAction implements Action {
   readonly type = LOAD_TODOS_FAIL;
+  constructor(public error: any) {}
 }
 
 export class LoadTodosSuccessAction implements Action {

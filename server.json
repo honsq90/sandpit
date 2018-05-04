@@ -1,0 +1,7 @@
+{
+  "todos": [
+    { "id": 1, "text": "json-server 1" },
+    { "id": 2, "text": "json-server 2" },
+    { "id": 3, "text": "json-server 3" }
+  ]
+}

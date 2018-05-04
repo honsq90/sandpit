@@ -14,6 +14,7 @@ export class TodosContainer implements OnInit {
   constructor(private _store: Store<fromStore.FeatureState>) {}
 
   ngOnInit() {
+    this._store.dispatch(new fromStore.LoadTodosAction());
     this.todos$ = this._store.select(fromStore.getAllTodos);
   }
 }

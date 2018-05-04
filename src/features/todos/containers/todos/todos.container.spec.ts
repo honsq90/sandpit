@@ -13,7 +13,8 @@ describe("TodosContainer", () => {
 
   const streamMock = Observable.of([]);
   const storeMock = {
-    select: jest.fn().mockReturnValue(streamMock)
+    select: jest.fn().mockReturnValue(streamMock),
+    dispatch: jest.fn(),
   };
 
   beforeEach(async(() => {
