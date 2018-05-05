@@ -9,17 +9,19 @@ import { TodosEffects } from "../effects";
 import * as fromActions from "../actions";
 import { TodosService } from "../../services";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { Todo } from "../../models/todo.model";
 
 describe("TodosEffects", () => {
   let effects: TodosEffects;
   let actions: Observable<any>;
+  let getTodosMock: Observable<Todo[]>;
 
-  const streamMock = Observable.of([{ text: "hi" }]);
   const serviceMock = {
-    getTodos: jest.fn().mockReturnValue(streamMock)
+    getTodos: jest.fn()
   };
 
   beforeEach(() => {
+
     TestBed.configureTestingModule({
       imports: [],
       providers: [
@@ -36,9 +38,12 @@ describe("TodosEffects", () => {
     const action = new fromActions.LoadTodosAction();
     const completion = new fromActions.LoadTodosSuccessAction([{ text: "hi" }]);
 
-    // Refer to 'Writing Marble Tests' for details on '--a-' syntax
-    actions = hot("--a-", { a: action });
-    const expected = cold("--b", { b: completion });
+    // LoadTodoAction dispatched in time 1
+    actions =         hot("a---", { a: action });
+    getTodosMock =    hot("---t", [{ text: "hi" }])
+    const expected = cold("---b", { b: completion });
+
+    serviceMock.getTodos.mockReturnValue(getTodosMock)
 
     expect(effects.loadTodos$).toBeObservable(expected);
   });
