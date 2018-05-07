@@ -15,7 +15,7 @@ describe("TodosEffects", () => {
   let effects: TodosEffects;
   let actions: Observable<any>;
   let getTodosMock: Observable<Todo[]>;
-
+  const t = [{ text: "hi" }];
   const serviceMock = {
     getTodos: jest.fn(),
   };
@@ -35,27 +35,26 @@ describe("TodosEffects", () => {
 
   it("should work", () => {
     const action = new fromActions.LoadTodosAction();
-    const completion = new fromActions.LoadTodosSuccessAction([{ text: "hi" }]);
+    const completion = new fromActions.LoadTodosSuccessAction(t);
 
-    actions = hot("a---", { a: action });
-    getTodosMock = cold("---t", { t: [{ text: "hi" }] });
-    const expected = cold("---b", { b: completion });
+    actions =         hot("a---", { a: action });
+    getTodosMock =   cold("--t", { t });
+    const expected = cold("--b", { b: completion });
 
     serviceMock.getTodos.mockReturnValue(getTodosMock);
 
     expect(effects.loadTodos$).toBeObservable(expected);
   });
 
-  it("should catch error", () => {
+  it("should catch error after 3 tries", () => {
     const error = "failed!";
     const action = new fromActions.LoadTodosAction();
     const completion = new fromActions.LoadTodosFailAction(error);
 
-    actions = hot("a---", { a: action });
-    getTodosMock = cold("--#|", {}, error);
-    const expected = cold("--e", { e: completion });
-
-    serviceMock.getTodos.mockReturnValue(getTodosMock);
+    actions =              hot("a", { a: action });
+    const getTodosError = cold("--#", {}, error);
+    const expected =      cold("------e", { e: completion });
+    serviceMock.getTodos.mockReturnValue(getTodosError);
 
     expect(effects.loadTodos$).toBeObservable(expected);
   });

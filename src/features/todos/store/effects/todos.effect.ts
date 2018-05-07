@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Effect, Actions } from "@ngrx/effects";
-import { map, switchMap, catchError } from "rxjs/operators";
+import { map, switchMap, catchError, retry } from "rxjs/operators";
 
 import * as fromActions from "../actions";
 import { TodosService } from "../../services/todos.service";
@@ -18,6 +18,7 @@ export class TodosEffects {
         this.todosService
           .getTodos()
           .pipe(
+            retry(2),
             map(todos => new fromActions.LoadTodosSuccessAction(todos)),
             catchError(error => of(new fromActions.LoadTodosFailAction(error))),
           ),
