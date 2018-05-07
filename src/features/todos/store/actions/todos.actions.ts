@@ -8,6 +8,7 @@ export const ADD_TODO = "[Todos] Add Todo";
 
 export class LoadTodosAction implements Action {
   readonly type = LOAD_TODOS;
+  constructor(public query: any) {}
 }
 
 export class LoadTodosFailAction implements Action {
