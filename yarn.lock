@@ -3600,9 +3600,9 @@ jest-leak-detector@^22.4.3:
   dependencies:
     pretty-format "^22.4.3"
 
-jest-marbles@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/jest-marbles/-/jest-marbles-1.1.1.tgz#d88f08a86ed99ed10d27222499407effa0ae58a3"
+jest-marbles@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/jest-marbles/-/jest-marbles-1.1.2.tgz#dc18824c227d428c65bdc29b6bc1791f6dc152e5"
 
 jest-matcher-utils@^22.4.3:
   version "22.4.3"
