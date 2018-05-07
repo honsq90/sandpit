@@ -3,7 +3,7 @@ import { provideMockActions } from "@ngrx/effects/testing";
 import { cold, hot } from "jest-marbles";
 
 import { Observable } from "rxjs";
-import 'rxjs/add/observable/of';
+import "rxjs/add/observable/of";
 
 import { TodosEffects } from "../effects";
 import * as fromActions from "../actions";
@@ -17,11 +17,10 @@ describe("TodosEffects", () => {
   let getTodosMock: Observable<Todo[]>;
 
   const serviceMock = {
-    getTodos: jest.fn()
+    getTodos: jest.fn(),
   };
 
   beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [],
       providers: [
@@ -38,12 +37,25 @@ describe("TodosEffects", () => {
     const action = new fromActions.LoadTodosAction();
     const completion = new fromActions.LoadTodosSuccessAction([{ text: "hi" }]);
 
-    // LoadTodoAction dispatched in time 1
-    actions =         hot("a---", { a: action });
-    getTodosMock =    hot("---t", [{ text: "hi" }])
+    actions = hot("a---", { a: action });
+    getTodosMock = cold("---t", { t: [{ text: "hi" }] });
     const expected = cold("---b", { b: completion });
 
-    serviceMock.getTodos.mockReturnValue(getTodosMock)
+    serviceMock.getTodos.mockReturnValue(getTodosMock);
+
+    expect(effects.loadTodos$).toBeObservable(expected);
+  });
+
+  it("should catch error", () => {
+    const error = "failed!";
+    const action = new fromActions.LoadTodosAction();
+    const completion = new fromActions.LoadTodosFailAction(error);
+
+    actions = hot("a---", { a: action });
+    getTodosMock = cold("--#|", {}, error);
+    const expected = cold("--e", { e: completion });
+
+    serviceMock.getTodos.mockReturnValue(getTodosMock);
 
     expect(effects.loadTodos$).toBeObservable(expected);
   });

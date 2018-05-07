@@ -14,11 +14,13 @@ export class TodosEffects {
   loadTodos$ = this.actions$
     .ofType(fromActions.LOAD_TODOS)
     .pipe(
-      switchMap(_ => this.todosService.getTodos()
-      .pipe(
-        map(todos => new fromActions.LoadTodosSuccessAction(todos)),
-        catchError(error => of(new fromActions.LoadTodosFailAction(error)))
-      )
-    )
-  );
+      switchMap(_ =>
+        this.todosService
+          .getTodos()
+          .pipe(
+            map(todos => new fromActions.LoadTodosSuccessAction(todos)),
+            catchError(error => of(new fromActions.LoadTodosFailAction(error))),
+          ),
+      ),
+    );
 }
