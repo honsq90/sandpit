@@ -1,9 +1,6 @@
-import { Component, Input, OnInit, Output } from "@angular/core";
-import { Store } from "@ngrx/store";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
-
 import { Todo } from "../../models/todo.model";
-import { FeatureState, AddTodoAction } from "../../store";
 
 @Component({
   selector: "todo-form",
@@ -11,8 +8,7 @@ import { FeatureState, AddTodoAction } from "../../store";
 })
 export class TodoFormComponent implements OnInit {
   todoForm: FormGroup;
-
-  constructor(private store: Store<FeatureState>) {}
+  @Output() onSubmit: EventEmitter<Todo> = new EventEmitter<Todo>();
 
   ngOnInit() {
     this.todoForm = new FormGroup({
@@ -21,7 +17,7 @@ export class TodoFormComponent implements OnInit {
   }
 
   addTodo() {
-    this.store.dispatch(new AddTodoAction(this.todoForm.value))
+    this.onSubmit.emit(this.todoForm.value);
     this.todoForm.reset();
   }
 }
