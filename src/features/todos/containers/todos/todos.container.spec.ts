@@ -41,7 +41,7 @@ describe("TodosContainer", () => {
   it("should render todo-list and todo-form with the appropriate properties", () => {
     const s = fixture.debugElement.nativeElement;
     const todoList = s.querySelector("todo-list");
-    const todoForm = s.querySelector("todo-form");
+    const todoForm = s.querySelector("app-todo-form");
     const payload = { text: "hello" };
 
     page.todoForm.listeners[0].callback(payload);
@@ -55,6 +55,6 @@ describe("TodosContainer", () => {
 class Page {
   todoForm: DebugElement;
   constructor(fixture) {
-    this.todoForm = fixture.debugElement.query(By.css("todo-form"));
+    this.todoForm = fixture.debugElement.query(By.css("app-todo-form"));
   }
 }
