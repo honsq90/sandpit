@@ -4,7 +4,8 @@ import { map, switchMap, catchError, retry, distinctUntilChanged } from 'rxjs/op
 
 import * as fromActions from '../actions';
 import { TodosService } from '../../services/todos.service';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
+import { Todo } from '../../models/todo.model';
 
 @Injectable()
 export class TodosEffects {
@@ -21,7 +22,7 @@ export class TodosEffects {
           .getTodos()
           .pipe(
             retry(2),
-            map(todos => new fromActions.LoadTodosSuccessAction(todos)),
+            map((todos: Todo[]) => new fromActions.LoadTodosSuccessAction(todos)),
             catchError(error => of(new fromActions.LoadTodosFailAction(error))),
           ),
       ),

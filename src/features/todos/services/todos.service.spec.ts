@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 
 import { TodosService } from './todos.service';
 import { HttpClient } from '@angular/common/http';
+import { of, throwError } from 'rxjs';
 
 describe('TodosService', () => {
   const todos = [{ text: 'blah' }];
@@ -25,7 +24,7 @@ describe('TodosService', () => {
   });
 
   it('should call the http client with the right URL and pipe the correct results', (done) => {
-    const streamMock = Observable.of(todos);
+    const streamMock = of(todos);
     httpMock.get.mockReturnValue(streamMock);
     service.getTodos().subscribe(results => {
       expect(results).toEqual(todos);
@@ -36,7 +35,7 @@ describe('TodosService', () => {
   });
 
   it('should catch error and return empty result', (done) => {
-    const errorMock = Observable.throw('error!');
+    const errorMock = throwError('error!');
     httpMock.get.mockReturnValue(errorMock);
     console.error = jest.fn();
     service.getTodos().subscribe(results => {

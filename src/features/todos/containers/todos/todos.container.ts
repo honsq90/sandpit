@@ -1,5 +1,5 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { Todo } from '../../models/todo.model';

@@ -2,14 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { marbles } from 'rxjs-marbles/jest';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-
 import { TodosEffects } from '../effects';
 import * as fromActions from '../actions';
 import { TodosService } from '../../services';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Todo } from '../../models/todo.model';
+import { Observable } from 'rxjs';
 
 describe('TodosEffects', () => {
   let effects: TodosEffects;

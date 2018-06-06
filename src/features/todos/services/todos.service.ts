@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/operators';
-import 'rxjs/add/observable/throw';
-
 import { Todo } from '../models/todo.model';
-import { of } from 'rxjs/observable/of';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class TodosService {
@@ -15,7 +12,9 @@ export class TodosService {
   getTodos(): Observable<Todo[]> {
     return this.http
       .get<Todo[]>(`http://localhost:3000/todos`)
-      .pipe(catchError(this.handleError('getTodos', [])));
+      .pipe(
+        catchError(this.handleError('getTodos', []))
+      );
   }
 
   private handleError(operation = 'operation', result?) {

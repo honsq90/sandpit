@@ -13,7 +13,7 @@
     }
   },
   "files": [
-    "test.ts"
+    "polyfills.js"
   ],
   "include": [
     "**/*.spec.ts",
