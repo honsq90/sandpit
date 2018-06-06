@@ -3,8 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { Todo } from '../../models/todo.model';
-import * as fromStore from '../../store';
-import { AddTodoAction } from '../../store';
+import { FeatureState } from '../../store/reducers';
+import { LoadTodosAction, AddTodoAction } from '../../store/actions';
+import { getAllTodos } from '../../store/selectors/todos.selectors';
 
 @Component({
   selector: 'app-todos-container-component',
@@ -12,11 +13,11 @@ import { AddTodoAction } from '../../store';
 })
 export class TodosContainerComponent implements OnInit {
   todos$: Observable<Todo[]>;
-  constructor(private _store: Store<fromStore.FeatureState>) {}
+  constructor(private _store: Store<FeatureState>) {}
 
   ngOnInit() {
-    this._store.dispatch(new fromStore.LoadTodosAction('hi'));
-    this.todos$ = this._store.select(fromStore.getAllTodos);
+    this._store.dispatch(new LoadTodosAction('hi'));
+    this.todos$ = this._store.select(getAllTodos);
   }
 
   dispatchAddTodo(value: Todo) {

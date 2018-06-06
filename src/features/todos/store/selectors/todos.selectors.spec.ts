@@ -1,6 +1,6 @@
 import * as todoSelectors from './todos.selectors';
 import { TodoState } from '../reducers/todos.reducer';
-import { FeatureState, TODO_FEATURE } from '../../store';
+import { FeatureState, TODO_FEATURE } from '../reducers';
 
 describe('Todos Selectors', () => {
   const todos: TodoState = {

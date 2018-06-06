@@ -14,6 +14,9 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@spec_helpers/*": ["src/spec_helpers/*"]
+    }
   }
 }

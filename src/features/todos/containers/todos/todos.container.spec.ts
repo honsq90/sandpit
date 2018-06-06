@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 
 import * as fromStore from '../../store';
 import { TodosContainerComponent } from './todos.container';
 import { By } from '@angular/platform-browser';
+import { MockStore } from '@spec_helpers/mock-store';
+import * as todosSelectors from '../../store/selectors/todos.selectors';
 
 class Container {
   todoForm: DebugElement;
@@ -21,11 +21,7 @@ describe('TodosContainer', () => {
   let container: Container;
 
   const todos = [{ text: 'blah' }];
-  const streamMock = Observable.of(todos);
-  const storeMock = {
-    select: jest.fn().mockReturnValue(streamMock),
-    dispatch: jest.fn(),
-  };
+  const storeMock = new MockStore(todosSelectors);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,6 +30,9 @@ describe('TodosContainer', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
+    jest.spyOn(storeMock, 'select');
+    jest.spyOn(storeMock, 'dispatch');
+
     fixture = TestBed.createComponent(TodosContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -41,19 +40,23 @@ describe('TodosContainer', () => {
   });
 
   it('should receive todo stream from store', () => {
-    expect(storeMock.select).toHaveBeenCalledWith(fromStore.getAllTodos);
-    expect(component.todos$).toEqual(streamMock);
+    expect(storeMock.select).toHaveBeenCalledWith(todosSelectors.getAllTodos);
+    expect(component.todos$).toEqual(storeMock.selectStreams['getAllTodos']);
   });
 
   it('should render todo-list and todo-form with the appropriate properties', () => {
     const s = fixture.debugElement.nativeElement;
-    const todoList = s.querySelector('todo-list');
+    const todoList = s.querySelector('app-todo-list');
     const payload = { text: 'hello' };
 
-    container.todoForm.listeners[0].callback(payload);
+    expect(todoList.todos).toEqual(null);
+
+    storeMock.selectStreams['getAllTodos'].next(todos);
+    fixture.detectChanges();
+
     expect(todoList.todos).toEqual(todos);
-    expect(storeMock.dispatch).toBeCalledWith(
-      new fromStore.AddTodoAction(payload),
-    );
+
+    container.todoForm.listeners[0].callback(payload);
+    expect(storeMock.dispatch).toBeCalledWith(new fromStore.AddTodoAction(payload));
   });
 });

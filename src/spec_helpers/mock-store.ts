@@ -9,14 +9,14 @@ interface SubjectMap {
   [key: string]: Subject<any>;
 }
 
-export class MockStoreWithSubjects {
-  public subjects: SubjectMap = {};
+export class MockStore {
+  public selectStreams: SubjectMap = {};
 
   constructor(private selectors: SelectorMap) { }
 
   public reset() {
-    Object.values(this.subjects).map((subject) => subject.complete());
-    this.subjects = {};
+    Object.values(this.selectStreams).map((subject) => subject.complete());
+    this.selectStreams = {};
     this.selectors = {};
   }
 
@@ -24,10 +24,10 @@ export class MockStoreWithSubjects {
 
   public select(selector): Observable<any> {
     const selectKey = getKeyByValue(this.selectors, selector);
-    if (!this.subjects[selectKey]) {
-      this.subjects[selectKey] = new Subject();
+    if (!this.selectStreams[selectKey]) {
+      this.selectStreams[selectKey] = new Subject();
     }
-    return this.subjects[selectKey];
+    return this.selectStreams[selectKey];
   }
 }
 

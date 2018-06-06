@@ -5,12 +5,9 @@
     "baseUrl": "./",
     "module": "commonjs",
     "types": [
-      "jasmine",
+      "jest",
       "node"
-    ],
-    "paths": {
-      "@spec_helpers/": ["spec_helpers/"]
-    }
+    ]
   },
   "files": [
     "test.ts"
