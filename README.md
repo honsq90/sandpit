@@ -1,11 +1,18 @@
 # NgrxPractice
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+# Libraries Used
 
-# Goals
+* Angular 6 (upgraded from Angular 5)
+* RxJS 6
+* [Jest](https://facebook.github.io/jest)
+* [Bulma - Flex based CSS framework](https://bulma.io/)
+* [rxjs-marbles](https://github.com/cartant/rxjs-marbles) for [marble testing](https://github.com/ReactiveX/rxjs/blob/master/doc/marble-testing.md)
 
-* To create an Angular 5 + [@ngrx](https://github.com/ngrx/platform) with tests written in Jest.
-* Making use of containers + presentational components to assist with separation of concerns and testing isolation.
+# Noteworthy items
+
+* Shallow testing using `NO_ERRORS_SCHEMA`, in the spirit of [Enzyme](http://airbnb.io/enzyme/)
+* MockStore for use with testing containers. See [MockStore](src/spec_helpers/mock-store.ts) and [how to use it in a container test](src/features/todos/containers/todos/todos.container.spec.ts)
+* Reducing redundant TestBed configuration based on instructions from [https://blog.angularindepth.com/angular-unit-testing-performance-34363b7345ba]
 
 # Resources along the way
 
