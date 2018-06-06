@@ -1,10 +1,10 @@
-import { Action } from "@ngrx/store";
-import { Todo } from "../../models/todo.model";
+import { Action } from '@ngrx/store';
+import { Todo } from '../../models/todo.model';
 
-export const LOAD_TODOS = "[Todos] Load Todos";
-export const LOAD_TODOS_FAIL = "[Todos] Load Todos Fail";
-export const LOAD_TODOS_SUCCESS = "[Todos] Load Todos Success";
-export const ADD_TODO = "[Todos] Add Todo";
+export const LOAD_TODOS = '[Todos] Load Todos';
+export const LOAD_TODOS_FAIL = '[Todos] Load Todos Fail';
+export const LOAD_TODOS_SUCCESS = '[Todos] Load Todos Success';
+export const ADD_TODO = '[Todos] Add Todo';
 
 export class LoadTodosAction implements Action {
   readonly type = LOAD_TODOS;

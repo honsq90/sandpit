@@ -1,8 +1,8 @@
-import { TodosContainer } from "./todos/todos.container";
+import { TodosContainerComponent } from './todos/todos.container';
 
 export const containers = [
-  TodosContainer,
+  TodosContainerComponent,
 ];
 
-export *  from "./todos/todos.container";
+export *  from './todos/todos.container';
 

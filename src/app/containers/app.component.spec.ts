@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
@@ -26,7 +25,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     const s = fixture.debugElement.nativeElement;
-    const routerOutlet = s.querySelectorAll("router-outlet");
+    const routerOutlet = s.querySelectorAll('router-outlet');
 
     expect(routerOutlet.length).toEqual(1);
   });

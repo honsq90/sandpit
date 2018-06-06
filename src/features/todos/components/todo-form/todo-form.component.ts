@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Todo } from '../../models/todo.model';
-import { filter, distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-form',
@@ -9,7 +9,7 @@ import { filter, distinctUntilChanged, debounceTime, map } from 'rxjs/operators'
 })
 export class TodoFormComponent implements OnInit {
   todoForm: FormGroup;
-  @Output() onSubmit: EventEmitter<Todo> = new EventEmitter<Todo>();
+  @Output() submitEmitter: EventEmitter<Todo> = new EventEmitter<Todo>();
 
   ngOnInit() {
     this.todoForm = new FormGroup({
@@ -25,11 +25,11 @@ export class TodoFormComponent implements OnInit {
     return this.todoForm.valueChanges.pipe(
       map(({ text }) => text),
       filter((text) => text && text.length > 2),
-    )
+    );
   }
 
   addTodo() {
-    this.onSubmit.emit(this.todoForm.value);
+    this.submitEmitter.emit(this.todoForm.value);
     this.todoForm.reset();
   }
 }

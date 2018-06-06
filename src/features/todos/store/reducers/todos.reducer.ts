@@ -1,27 +1,26 @@
-import { Todo } from "../../models/todo.model";
+import { Todo } from '../../models/todo.model';
 
-import * as fromActions from "../actions";
-import { BrowserTransferStateModule } from "@angular/platform-browser";
+import * as fromActions from '../actions';
 
 export interface TodoState {
-  list: Todo[],
-  loading: boolean,
-  loaded: boolean,
+  list: Todo[];
+  loading: boolean;
+  loaded: boolean;
 }
 
 const initialState: TodoState = {
   list: [],
   loading: false,
   loaded: false,
-}
+};
 
 export function reducer(state: TodoState = initialState, action: fromActions.TodoAction): TodoState {
-  switch(action.type) {
+  switch (action.type) {
     case fromActions.LOAD_TODOS: {
       return {
         ...state,
         loading: true,
-      }
+      };
     }
 
     case fromActions.LOAD_TODOS_FAIL: {
@@ -29,7 +28,7 @@ export function reducer(state: TodoState = initialState, action: fromActions.Tod
         ...state,
         loading: false,
         loaded: false,
-      }
+      };
     }
 
     case fromActions.LOAD_TODOS_SUCCESS: {
@@ -38,7 +37,7 @@ export function reducer(state: TodoState = initialState, action: fromActions.Tod
         list: action.payload,
         loading: false,
         loaded: true,
-      }
+      };
     }
 
     case fromActions.ADD_TODO: {
@@ -48,7 +47,7 @@ export function reducer(state: TodoState = initialState, action: fromActions.Tod
           ...state.list,
           action.payload,
         ],
-      }
+      };
     }
   }
   return state;

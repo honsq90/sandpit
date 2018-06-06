@@ -1,11 +1,10 @@
-import * as fromStore from "../../store";
-import * as todoSelectors from "./todos.selectors";
-import { TodoState } from "../reducers/todos.reducer";
-import { FeatureState, TODO_FEATURE } from "../../store";
+import * as todoSelectors from './todos.selectors';
+import { TodoState } from '../reducers/todos.reducer';
+import { FeatureState, TODO_FEATURE } from '../../store';
 
-describe("Todos Selectors", () => {
+describe('Todos Selectors', () => {
   const todos: TodoState = {
-    list: [{ text: "hello" }],
+    list: [{ text: 'hello' }],
     loading: false,
     loaded: false
   };
@@ -18,9 +17,9 @@ describe("Todos Selectors", () => {
     [TODO_FEATURE]: mockFeatureState
   };
 
-  it("should retrieve the todo list from state", () => {
+  it('should retrieve the todo list from state', () => {
     expect(todoSelectors.getAllTodos(mockState)).toEqual([
-      { text: "hello" }
+      { text: 'hello' }
     ]);
   });
 });

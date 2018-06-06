@@ -7,7 +7,10 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "paths": {
+      "@spec_helpers/": ["spec_helpers/"]
+    }
   },
   "files": [
     "test.ts"

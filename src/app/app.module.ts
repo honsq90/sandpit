@@ -1,26 +1,25 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import {
   StoreRouterConnectingModule,
   RouterStateSerializer,
-} from "@ngrx/router-store";
+} from '@ngrx/router-store';
 
-import { AppComponent } from "./containers/app.component";
-import { HomeComponent } from "./home/home.component";
-import { StoreModule } from "@ngrx/store";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { AppComponent } from './containers/app.component';
+import { HomeComponent } from './home/home.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { environment } from "../config/environments/environment";
+import { environment } from '../config/environments/environment';
 import { reducers, CustomSerializer } from './store';
-import { EffectsModule } from "@ngrx/effects";
+import { EffectsModule } from '@ngrx/effects';
 
 const ROUTES: Routes = [
-  { path: "", component: HomeComponent },
+  { path: '', component: HomeComponent },
   {
-    path: "todos",
-    loadChildren: "../features/todos/todos.module#TodosModule"
+    path: 'todos',
+    loadChildren: '../features/todos/todos.module#TodosModule'
   }
 ];
 

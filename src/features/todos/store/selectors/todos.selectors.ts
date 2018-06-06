@@ -1,5 +1,5 @@
-import * as fromFeature from "../reducers/";
-import { createSelector, createFeatureSelector } from "@ngrx/store";
+import * as fromFeature from '../reducers/';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 export const getFeatureState = createFeatureSelector<fromFeature.FeatureState>(
   fromFeature.TODO_FEATURE

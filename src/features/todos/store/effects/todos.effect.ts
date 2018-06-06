@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Effect, Actions } from "@ngrx/effects";
-import { map, switchMap, catchError, retry, distinctUntilChanged } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { Effect, Actions } from '@ngrx/effects';
+import { map, switchMap, catchError, retry, distinctUntilChanged } from 'rxjs/operators';
 
-import * as fromActions from "../actions";
-import { TodosService } from "../../services/todos.service";
-import { of } from "rxjs/observable/of";
+import * as fromActions from '../actions';
+import { TodosService } from '../../services/todos.service';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class TodosEffects {

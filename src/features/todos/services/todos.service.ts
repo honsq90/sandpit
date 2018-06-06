@@ -20,7 +20,7 @@ export class TodosService {
 
   private handleError(operation = 'operation', result?) {
     return (error: any) => {
-      console.error(operation, error)
+      console.error(operation, error);
       return of(result);
     };
   }

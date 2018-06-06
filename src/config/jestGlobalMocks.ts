@@ -1,5 +1,5 @@
 const mock = () => {
-  //Mock our local storage
+  // Mock our local storage
    let storage = {};
    return {
      getItem: key => key in storage ? storage[ key ] : null,
@@ -15,7 +15,7 @@ const mock = () => {
    value: () => [ '-webkit-appearance' ]
  });
 
- //Important if you use angular animations.
+ // Important if you use angular animations.
  Object.defineProperty(document.body.style, 'transform', {
    value: () => {
      return {
