@@ -1,12 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Store } from '@ngrx/store';
-
-import * as fromStore from '../../store';
-import { TodosContainerComponent } from './todos.container';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
 import { MockStore } from '@spec_helpers/mock-store';
+
+import { configureTestSuite } from '../../../../config/setupJest';
+import * as fromStore from '../../store';
 import * as todosSelectors from '../../store/selectors/todos.selectors';
+import { TodosContainerComponent } from './todos.container';
 
 class Container {
   todoForm: DebugElement;
@@ -23,13 +24,19 @@ describe('TodosContainer', () => {
   const todos = [{ text: 'blah' }];
   const storeMock = new MockStore(todosSelectors);
 
-  beforeEach(() => {
+  configureTestSuite();
+
+  beforeAll(done => (async () => {
     TestBed.configureTestingModule({
       declarations: [TodosContainerComponent],
       providers: [{ provide: Store, useValue: storeMock }],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    });
 
+    await TestBed.compileComponents();
+  })().then(done).catch(done.fail));
+
+  beforeEach(() => {
     jest.spyOn(storeMock, 'select');
     jest.spyOn(storeMock, 'dispatch');
 

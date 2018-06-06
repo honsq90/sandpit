@@ -1,6 +1,5 @@
 import * as todoSelectors from './todos.selectors';
 import { TodoState } from '../reducers/todos.reducer';
-import { FeatureState, TODO_FEATURE } from '../reducers';
 
 describe('Todos Selectors', () => {
   const todos: TodoState = {
@@ -9,16 +8,8 @@ describe('Todos Selectors', () => {
     loaded: false
   };
 
-  const mockFeatureState: FeatureState = {
-    fromTodos: todos
-  };
-
-  const mockState = {
-    [TODO_FEATURE]: mockFeatureState
-  };
-
   it('should retrieve the todo list from state', () => {
-    expect(todoSelectors.getAllTodos(mockState)).toEqual([
+    expect(todoSelectors.getAllTodos.projector(todos)).toEqual([
       { text: 'hello' }
     ]);
   });

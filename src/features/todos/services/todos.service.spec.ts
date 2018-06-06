@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { TodosService } from './todos.service';
 import { HttpClient } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
+import { configureTestSuite } from '../../../config/setupJest';
 
 describe('TodosService', () => {
   const todos = [{ text: 'blah' }];
@@ -12,7 +13,9 @@ describe('TodosService', () => {
 
   let service: TodosService;
 
-  beforeEach(() => {
+  configureTestSuite();
+
+  beforeAll(done => (async () => {
     TestBed.configureTestingModule({
       providers: [
         TodosService,
@@ -20,6 +23,10 @@ describe('TodosService', () => {
       ],
     });
 
+    await TestBed.compileComponents();
+  })().then(done).catch(done.fail));
+
+  beforeEach(() => {
     service = TestBed.get(TodosService);
   });
 

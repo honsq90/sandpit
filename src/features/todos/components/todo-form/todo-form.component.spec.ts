@@ -2,16 +2,24 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TodoFormComponent } from './todo-form.component';
+import { configureTestSuite } from '../../../../config/setupJest';
 
 describe('TodoFormComponent', () => {
   let component: TodoFormComponent;
   let fixture: ComponentFixture<TodoFormComponent>;
 
-  beforeEach(async(() => {
+  configureTestSuite();
+
+  beforeAll(done => (async () => {
     TestBed.configureTestingModule({
       declarations: [TodoFormComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA]
+    });
+
+    await TestBed.compileComponents();
+  })().then(done).catch(done.fail));
+
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(TodoFormComponent);
     component = fixture.componentInstance;
     component.ngOnInit();

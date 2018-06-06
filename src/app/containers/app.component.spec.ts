@@ -1,18 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { configureTestSuite } from '../../config/setupJest';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
 
-  beforeEach(async(() => {
+  configureTestSuite();
+
+  beforeAll(done => (async () => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    });
+
+    await TestBed.compileComponents();
+  })().then(done).catch(done.fail));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);

@@ -40,7 +40,6 @@ module.exports = {
     'src/app/*.{js}'
   ],
   moduleNameMapper: {
-    "@app/(.*)": "<rootDir>/src/app/$1",
     "@spec_helpers/(.*)": "<rootDir>/src/spec_helpers/$1",
   }
 };

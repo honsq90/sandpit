@@ -1,19 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { configureTestSuite } from '../../../../config/setupJest';
 import { TodoListComponent } from './todo-list.component';
 
 describe('TodoListComponent', () => {
   let component: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
 
-  beforeEach(async(() => {
+  configureTestSuite();
+
+  beforeAll(done => (async () => {
     TestBed.configureTestingModule({
       declarations: [TodoListComponent],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    });
+
+    await TestBed.compileComponents();
+  })().then(done).catch(done.fail));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TodoListComponent);

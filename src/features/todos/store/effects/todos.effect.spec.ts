@@ -4,10 +4,10 @@ import { marbles } from 'rxjs-marbles/jest';
 
 import { TodosEffects } from '../effects';
 import * as fromActions from '../actions';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Todo } from '../../models/todo.model';
 import { Observable } from 'rxjs';
 import { TodosService } from '../../services/todos.service';
+import { configureTestSuite } from '../../../../config/setupJest';
 
 describe('TodosEffects', () => {
   let effects: TodosEffects;
@@ -18,16 +18,21 @@ describe('TodosEffects', () => {
     getTodos: jest.fn(),
   };
 
-  beforeEach(() => {
+  configureTestSuite();
+
+  beforeAll(done => (async () => {
     TestBed.configureTestingModule({
-      imports: [],
       providers: [
         TodosEffects,
         { provide: TodosService, useValue: serviceMock },
         provideMockActions(() => actions),
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     });
+
+    await TestBed.compileComponents();
+  })().then(done).catch(done.fail));
+
+  beforeEach(() => {
     effects = TestBed.get(TodosEffects);
   });
 
@@ -36,8 +41,8 @@ describe('TodosEffects', () => {
       const action = new fromActions.LoadTodosAction('hi');
       const completion = new fromActions.LoadTodosSuccessAction(t);
 
-      actions =         m.hot('aaaaa', { a: action });
-      getTodosMock =   m.cold('--t', { t });
+      actions = m.hot('aaaaa', { a: action });
+      getTodosMock = m.cold('--t', { t });
       const expected = m.cold('--b', { b: completion });
 
       serviceMock.getTodos.mockReturnValue(getTodosMock);
@@ -50,8 +55,8 @@ describe('TodosEffects', () => {
       const actionB = new fromActions.LoadTodosAction('hi2');
       const completion = new fromActions.LoadTodosSuccessAction(t);
 
-      actions =         m.hot('aaaaab', { a: action, b: actionB });
-      getTodosMock =   m.cold('--t', { t });
+      actions = m.hot('aaaaab', { a: action, b: actionB });
+      getTodosMock = m.cold('--t', { t });
       const expected = m.cold('--b----b', { b: completion });
 
       serviceMock.getTodos.mockReturnValue(getTodosMock);
@@ -64,9 +69,9 @@ describe('TodosEffects', () => {
       const action = new fromActions.LoadTodosAction('hi');
       const completion = new fromActions.LoadTodosFailAction(error);
 
-      actions =              m.hot('a', { a: action });
+      actions = m.hot('a', { a: action });
       const getTodosError = m.cold('--#', {}, error);
-      const expected =      m.cold('------e', { e: completion });
+      const expected = m.cold('------e', { e: completion });
       serviceMock.getTodos.mockReturnValue(getTodosError);
 
       m.expect(effects.loadTodos$).toBeObservable(expected);

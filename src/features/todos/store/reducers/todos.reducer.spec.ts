@@ -18,7 +18,6 @@ describe('Todos Selectors', () => {
     expect(reducedState).toEqual(expectedState);
   });
 
-
   it('should reset list on LOAD_TODOS_FAIL', () => {
     const todo: Todo = { text: 'hello' };
     const initialState: todoReducer.TodoState = {list: [todo], loaded: false, loading: true};
