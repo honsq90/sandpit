@@ -4,10 +4,10 @@ import { marbles } from 'rxjs-marbles/jest';
 
 import { TodosEffects } from '../effects';
 import * as fromActions from '../actions';
-import { TodosService } from '../../services';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Todo } from '../../models/todo.model';
 import { Observable } from 'rxjs';
+import { TodosService } from '../../services/todos.service';
 
 describe('TodosEffects', () => {
   let effects: TodosEffects;

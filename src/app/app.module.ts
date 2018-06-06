@@ -14,6 +14,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../config/environments/environment';
 import { reducers, CustomSerializer } from './store';
 import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
 
 const ROUTES: Routes = [
   { path: '', component: HomeComponent },
@@ -29,6 +30,7 @@ const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
+    HttpClientModule,
     StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument({
       logOnly: environment.production // Restrict extension to log-only mode

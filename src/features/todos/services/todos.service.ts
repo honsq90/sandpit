@@ -5,7 +5,7 @@ import { Todo } from '../models/todo.model';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TodosService {
   constructor(private http: HttpClient) { }
 
