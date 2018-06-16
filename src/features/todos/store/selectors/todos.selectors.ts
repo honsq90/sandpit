@@ -10,5 +10,5 @@ export const getTodoState = createSelector(
   (state: fromFeature.FeatureState) => state.fromTodos
 );
 
-export const getAllTodos = createSelector(getTodoState, state => state.list);
+export const getAllTodos = createSelector(getTodoState, (state) => state.list);
 

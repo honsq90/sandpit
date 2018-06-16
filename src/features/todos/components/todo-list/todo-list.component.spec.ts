@@ -10,7 +10,7 @@ describe('TodoListComponent', () => {
 
   configureTestSuite();
 
-  beforeAll(done => (async () => {
+  beforeAll((done) => (async () => {
     TestBed.configureTestingModule({
       declarations: [TodoListComponent],
       schemas: [NO_ERRORS_SCHEMA]

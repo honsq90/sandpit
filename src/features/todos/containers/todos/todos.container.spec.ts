@@ -26,7 +26,7 @@ describe('TodosContainer', () => {
 
   configureTestSuite();
 
-  beforeAll(done => (async () => {
+  beforeAll((done) => (async () => {
     TestBed.configureTestingModule({
       declarations: [TodosContainerComponent],
       providers: [{ provide: Store, useValue: storeMock }],

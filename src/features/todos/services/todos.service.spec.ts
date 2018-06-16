@@ -15,7 +15,7 @@ describe('TodosService', () => {
 
   configureTestSuite();
 
-  beforeAll(done => (async () => {
+  beforeAll((done) => (async () => {
     TestBed.configureTestingModule({
       providers: [
         TodosService,
@@ -33,7 +33,7 @@ describe('TodosService', () => {
   it('should call the http client with the right URL and pipe the correct results', (done) => {
     const streamMock = of(todos);
     httpMock.get.mockReturnValue(streamMock);
-    service.getTodos().subscribe(results => {
+    service.getTodos().subscribe((results) => {
       expect(results).toEqual(todos);
       done();
     });
@@ -45,7 +45,7 @@ describe('TodosService', () => {
     const errorMock = throwError('error!');
     httpMock.get.mockReturnValue(errorMock);
     console.error = jest.fn();
-    service.getTodos().subscribe(results => {
+    service.getTodos().subscribe((results) => {
       expect(results).toEqual([]);
       expect(console.error).toBeCalledWith('getTodos', 'error!');
       done();

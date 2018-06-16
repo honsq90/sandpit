@@ -10,7 +10,7 @@ describe('TodoFormComponent', () => {
 
   configureTestSuite();
 
-  beforeAll(done => (async () => {
+  beforeAll((done) => (async () => {
     TestBed.configureTestingModule({
       declarations: [TodoFormComponent],
       schemas: [NO_ERRORS_SCHEMA]
@@ -47,10 +47,10 @@ describe('TodoFormComponent', () => {
     expect(console.log).not.toBeCalled();
   });
 
-  it('should dispatch action on addTodo', done => {
+  it('should dispatch action on addTodo', (done) => {
     component.todoForm.controls['text'].setValue('blah');
 
-    component.submitEmitter.subscribe(foo => {
+    component.submitEmitter.subscribe((foo) => {
       expect(foo).toEqual({ text: 'blah' });
       done();
     });

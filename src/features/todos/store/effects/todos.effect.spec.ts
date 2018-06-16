@@ -20,7 +20,7 @@ describe('TodosEffects', () => {
 
   configureTestSuite();
 
-  beforeAll(done => (async () => {
+  beforeAll((done) => (async () => {
     TestBed.configureTestingModule({
       providers: [
         TodosEffects,

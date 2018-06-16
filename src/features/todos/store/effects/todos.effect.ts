@@ -15,15 +15,15 @@ export class TodosEffects {
   loadTodos$ = this.actions$
     .ofType<fromActions.LoadTodosAction>(fromActions.LOAD_TODOS)
     .pipe(
-      map(action => action.query),
+      map((action) => action.query),
       distinctUntilChanged(),
-      switchMap(_ =>
+      switchMap((_) =>
         this.todosService
           .getTodos()
           .pipe(
             retry(2),
             map((todos: Todo[]) => new fromActions.LoadTodosSuccessAction(todos)),
-            catchError(error => of(new fromActions.LoadTodosFailAction(error))),
+            catchError((error) => of(new fromActions.LoadTodosFailAction(error))),
           ),
       ),
     );
