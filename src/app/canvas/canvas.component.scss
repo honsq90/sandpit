@@ -1,9 +1,34 @@
-.canvas-container{
-  height: 80vh;
-  width: 100%;
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-canvas {
-  width: 100%;
-  background-color: lightgray;
+.canvas-container{
+  height: 600px;
+  width: 800px;
+  canvas {
+    background-color: lightgray;
+  }
+}
+
+.spinner {
+  margin-top: 100px;
+  border: solid 20px;
+  border-radius: 50%;
+  animation: scale-out 1s infinite;
+}
+
+@keyframes scale-out {
+  0% {
+    width: 0px;
+    height: 0px;
+    border-color: gray;
+
+  }
+  100% {
+    transform: scale(3);
+    border-color: rgba(2, 241, 162, 0);
+  }
 }

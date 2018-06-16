@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Observable, fromEvent } from 'rxjs';
-import { switchMap, takeUntil, pairwise, tap, filter, map } from 'rxjs/operators';
+import { switchMap, takeUntil, pairwise, tap, filter, map, take } from 'rxjs/operators';
 
 const socket = new WebSocket('wss://node2.wsninja.io');
 
@@ -27,6 +27,7 @@ export class CanvasComponent implements AfterViewInit {
   mouseMove$: Observable<MouseEvent>;
   mouseUp$: Observable<MouseEvent>;
   strokeStyle: string;
+  socketPending = true;
 
   ngAfterViewInit() {
     const canvas = this.canvas.nativeElement;
@@ -84,26 +85,46 @@ export class CanvasComponent implements AfterViewInit {
 
   setupWebSockets() {
     const socketOpen$ = fromEvent(socket, 'open', { once: true });
-    const socketMessageDrawStroke$: Observable<[DrawStrokeSocketEvent, DrawStrokeSocketEvent]> = fromEvent(socket, 'message')
+
+    const socketMessageEvents$: Observable<MessageEvent> = fromEvent(socket, 'message')
       .pipe(
         map((event: MessageEvent) => JSON.parse(event.data)),
-        filter((message: DrawStrokeSocketEvent) => {
+    );
+
+    const socketMessageDrawStroke$: Observable<[SocketEvent, SocketEvent]> = socketMessageEvents$
+      .pipe(
+        filter((message: SocketEvent) => {
           return message.type === 'drawStroke';
         }),
         pairwise(),
     );
 
     socketOpen$
+      .pipe(
+        tap((_) => {
+          this.strokeStyle = getRandomColor();
+          socket.send(JSON.stringify({ guid: '2b39803b-cb62-460b-8a04-c8dfc7f3b37c' }));
+        }),
+        switchMap((_) =>
+          socketMessageEvents$.pipe(
+            filter((message: any) => message.accepted),
+            take(1),
+          )
+        ),
+    )
       .subscribe((_) => {
-        this.strokeStyle = getRandomColor();
-        socket.send(JSON.stringify({ guid: '2b39803b-cb62-460b-8a04-c8dfc7f3b37c' }));
+        this.socketPending = false;
       });
 
     socketMessageDrawStroke$
-      .subscribe((message) => {
+      .subscribe((message: [DrawStrokeSocketEvent, DrawStrokeSocketEvent]) => {
         this.drawStroke(this.ctx, message, message[0].strokeStyle);
       });
   }
+}
+
+class SocketEvent {
+  type: string;
 }
 
 class DrawStrokeSocketEvent {

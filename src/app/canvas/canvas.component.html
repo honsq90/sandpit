@@ -1,6 +1,8 @@
 <h1 class="title">Canvas</h1>
-
-<div class="canvas-container" #appCanvasContainer>
-  <canvas #appCanvas>
-  </canvas>
+<div class="page-container">
+  <div class="canvas-container" #appCanvasContainer [ngClass]="socketPending ? 'hidden' : ''">
+    <canvas #appCanvas>
+    </canvas>
+  </div>
+  <div class="spinner" *ngIf="socketPending"></div>
 </div>
