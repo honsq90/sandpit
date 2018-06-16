@@ -76,6 +76,7 @@
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
+    "arrow-parens": true,
     "one-line": [
       true,
       "check-open-brace",
