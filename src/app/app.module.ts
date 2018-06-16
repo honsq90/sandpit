@@ -15,9 +15,11 @@ import { environment } from '../config/environments/environment';
 import { reducers, CustomSerializer } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { CanvasComponent } from './canvas/canvas.component';
 
 const ROUTES: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'canvas', component: CanvasComponent },
   {
     path: 'todos',
     loadChildren: '../features/todos/todos.module#TodosModule'
@@ -37,7 +39,7 @@ const ROUTES: Routes = [
     })
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, CanvasComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

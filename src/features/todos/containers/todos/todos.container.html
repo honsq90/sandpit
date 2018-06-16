@@ -1,3 +1,5 @@
+<h1 class="title">Todos example</h1>
+
 <app-todo-form (submitEmitter)="dispatchAddTodo($event)"></app-todo-form>
 
 <app-todo-list [todos]="(todos$ | async)"></app-todo-list>
