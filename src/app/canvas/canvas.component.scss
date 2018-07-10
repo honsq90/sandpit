@@ -17,18 +17,22 @@
   margin-top: 100px;
   border: solid 20px;
   border-radius: 50%;
-  animation: scale-out 1s infinite;
+  border-color: gray;
+  animation: scale-out 1s infinite ease-in-out;
 }
 
 @keyframes scale-out {
   0% {
     width: 0px;
     height: 0px;
-    border-color: gray;
-
+    transform: translate(-40px);
   }
+
+  50% {
+    transform: translate(40px);
+  }
+
   100% {
-    transform: scale(3);
-    border-color: rgba(2, 241, 162, 0);
+    transform: translate(-40px);
   }
 }

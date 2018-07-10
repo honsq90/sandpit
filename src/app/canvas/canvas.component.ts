@@ -1,8 +1,11 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Observable, fromEvent } from 'rxjs';
-import { switchMap, takeUntil, pairwise, tap, filter, map, take } from 'rxjs/operators';
+import { PhoenixSocket } from '../lib/phoenix-rxjs';
 
-const socket = new WebSocket('wss://node2.wsninja.io');
+import { switchMap, takeUntil, pairwise, tap } from 'rxjs/operators';
+
+const phoenixSocket = new PhoenixSocket('ws://localhost:4000/socket');
+const canvasChannel = phoenixSocket.channel('rooms:canvas');
 
 const getRandomColor = () => {
   const letters = '0123456789ABCDEF';
@@ -26,7 +29,7 @@ export class CanvasComponent implements AfterViewInit {
   mouseDown$: Observable<MouseEvent>;
   mouseMove$: Observable<MouseEvent>;
   mouseUp$: Observable<MouseEvent>;
-  strokeStyle: string;
+  color: string;
   socketPending = true;
 
   ngAfterViewInit() {
@@ -64,70 +67,54 @@ export class CanvasComponent implements AfterViewInit {
           takeUntil(this.mouseUp$)
         ))
     ).subscribe(([lastMove, currentMove]) => {
-      this.drawStroke(this.ctx, [lastMove, currentMove], this.strokeStyle);
-      socket.send(JSON.stringify({
-        type: 'drawStroke',
-        offsetX: currentMove.offsetX,
-        offsetY: currentMove.offsetY,
-        strokeStyle: this.strokeStyle
-      }));
+      this.publishToSocket(currentMove);
+    });
+  }
+
+  publishToSocket(currentMove: MouseEvent) {
+    canvasChannel.push('stroke_added', {
+      x: currentMove.offsetX,
+      y: currentMove.offsetY,
+      color: this.color,
     });
   }
 
   drawStroke(context, [lastMove, currentMove], strokeStyle) {
     context.strokeStyle = strokeStyle;
     context.beginPath();
-    context.moveTo(lastMove.offsetX, lastMove.offsetY);
-    context.lineTo(currentMove.offsetX, currentMove.offsetY);
+    context.moveTo(lastMove.x, lastMove.y);
+    context.lineTo(currentMove.x, currentMove.y);
     context.closePath();
     context.stroke();
   }
 
   setupWebSockets() {
-    const socketOpen$ = fromEvent(socket, 'open', { once: true });
+    canvasChannel.join()
+      .subscribe((_) => {
+        this.socketPending = false;
+        this.color = getRandomColor();
+      });
 
-    const socketMessageEvents$: Observable<MessageEvent> = fromEvent(socket, 'message')
+    const socketMessageEvents$ = canvasChannel
+      .messages('draw_stroke')
       .pipe(
-        map((event: MessageEvent) => JSON.parse(event.data)),
+        tap((event) => console.log(event)),
     );
 
-    const socketMessageDrawStroke$: Observable<[SocketEvent, SocketEvent]> = socketMessageEvents$
+    const socketMessageDrawStroke$ = socketMessageEvents$
       .pipe(
-        filter((message: SocketEvent) => {
-          return message.type === 'drawStroke';
-        }),
         pairwise(),
     );
 
-    socketOpen$
-      .pipe(
-        tap((_) => {
-          this.strokeStyle = getRandomColor();
-          socket.send(JSON.stringify({ guid: '2b39803b-cb62-460b-8a04-c8dfc7f3b37c' }));
-        }),
-        switchMap((_) =>
-          socketMessageEvents$.pipe(
-            filter((message: any) => message.accepted),
-            take(1),
-          )
-        ),
-    )
-      .subscribe((_) => {
-        this.socketPending = false;
-      });
-
     socketMessageDrawStroke$
-      .subscribe((message: [DrawStrokeSocketEvent, DrawStrokeSocketEvent]) => {
-        this.drawStroke(this.ctx, message, message[0].strokeStyle);
+      .subscribe((messages: [DrawStrokeSocketEvent, DrawStrokeSocketEvent]) => {
+        // TODO: don't connect lines between breaks.
+        // TODO: concurrency with different colors
+        this.drawStroke(this.ctx, messages, messages[0].color);
       });
   }
 }
 
-class SocketEvent {
-  type: string;
-}
-
 class DrawStrokeSocketEvent {
-  type = 'drawStroke';
-  constructor(public offsetX: string, public offsetY: string, public strokeStyle: string) { }
+  constructor(public x: string, public y: string, public color: string) { }
 }
