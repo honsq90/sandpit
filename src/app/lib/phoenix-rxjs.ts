@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { Socket, Channel } from 'phoenix';
 
-export class PhoenixChannel {
+class PhoenixChannel {
   private channel: Channel;
 
   constructor(socket: Socket, topic: string, options = {}) {
@@ -13,11 +13,9 @@ export class PhoenixChannel {
     return new Observable((observer) => {
       this.channel.join()
         .receive('ok', (resp) => {
-          console.log('connected', resp);
           observer.next(resp);
         })
         .receive('error', (resp) => {
-          console.error(resp);
           observer.error(resp);
         });
     });
@@ -50,7 +48,7 @@ export class PhoenixSocket {
     this.socket.connect();
   }
 
-  channel(topic, options = {}) {
+  channel(topic, options = {}): PhoenixChannel {
     return new PhoenixChannel(this.socket, topic, options);
   }
 }
