@@ -12,7 +12,7 @@
 
 * Shallow testing using `NO_ERRORS_SCHEMA`, in the spirit of [Enzyme](http://airbnb.io/enzyme/)
 * MockStore for use with testing containers. See [MockStore](src/spec_helpers/mock-store.ts) and [how to use it in a container test](src/features/todos/containers/todos/todos.container.spec.ts)
-* Reducing redundant TestBed configuration based on instructions from [https://blog.angularindepth.com/angular-unit-testing-performance-34363b7345ba]
+* Reducing redundant TestBed configuration based on instructions from [Angular Unit Testing Performance](https://blog.angularindepth.com/angular-unit-testing-performance-34363b7345ba)
 
 ### Resources along the way
 
