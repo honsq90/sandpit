@@ -1,11 +1,10 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Observable, fromEvent } from 'rxjs';
-import { PhoenixSocket } from '../lib/phoenix-rxjs';
+import { PhoenixSocket, PhoenixChannel } from '../lib/phoenix-rxjs';
 
 import { switchMap, takeUntil, pairwise, tap, mergeMap, filter } from 'rxjs/operators';
 
 const phoenixSocket = new PhoenixSocket('ws://localhost:4000/socket');
-const canvasChannel = phoenixSocket.channel('rooms:canvas');
 
 const getRandomColor = () => {
   const letters = '0123456789ABCDEF';
@@ -35,6 +34,7 @@ export class CanvasComponent implements AfterViewInit {
   mouseUp$: Observable<MouseEvent>;
   color: string;
   socketPending = true;
+  canvasChannel: PhoenixChannel;
 
   ngAfterViewInit() {
     const canvas = this.canvas.nativeElement;
@@ -60,7 +60,6 @@ export class CanvasComponent implements AfterViewInit {
     this.mouseMove$ = fromEvent(canvas, 'mousemove');
     this.mouseUp$ = fromEvent(canvas, 'mouseup');
 
-
     this.mouseDown$.pipe(
       tap((mouseDown) => {
         mouseDown.preventDefault();
@@ -82,7 +81,7 @@ export class CanvasComponent implements AfterViewInit {
   }
 
   publishToSocket(message: string, currentMove: MouseEvent) {
-    canvasChannel.push(message, {
+    this.canvasChannel.push(message, {
       x: currentMove.offsetX,
       y: currentMove.offsetY,
       color: this.color,
@@ -99,10 +98,13 @@ export class CanvasComponent implements AfterViewInit {
   }
 
   setupWebSockets() {
+    this.color = getRandomColor();
+
+    const canvasChannel = phoenixSocket.channel('rooms:canvas', { color: this.color });
+    this.canvasChannel = canvasChannel;
     canvasChannel.join()
       .subscribe((_) => {
         this.socketPending = false;
-        this.color = getRandomColor();
       });
 
     const strokeStartedEvent$ = canvasChannel.messages(STROKE_STARTED);
@@ -113,7 +115,7 @@ export class CanvasComponent implements AfterViewInit {
           const strokeAddedEvent$ = canvasChannel.messages(STROKE_ADDED)
             .pipe(
               filter((stroke: StrokeSocketEvent) => stroke.color === strokeStarted.color),
-            );
+          );
           const strokeEndedEvent$ = canvasChannel.messages(STROKE_ENDED)
             .pipe(
               filter((stroke: StrokeSocketEvent) => stroke.color === strokeStarted.color),

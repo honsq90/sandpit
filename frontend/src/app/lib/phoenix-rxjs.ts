@@ -2,11 +2,11 @@ import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { Socket, Channel } from 'phoenix';
 
-class PhoenixChannel {
+export class PhoenixChannel {
   private channel: Channel;
 
-  constructor(socket: Socket, topic: string, options = {}) {
-    this.channel = socket.channel(topic, options);
+  constructor(socket: Socket, topic: string, params = {}) {
+    this.channel = socket.channel(topic, params);
   }
 
   join() {
@@ -48,8 +48,8 @@ export class PhoenixSocket {
     this.socket.connect();
   }
 
-  channel(topic, options = {}): PhoenixChannel {
-    return new PhoenixChannel(this.socket, topic, options);
+  channel(topic, params = {}): PhoenixChannel {
+    return new PhoenixChannel(this.socket, topic, params);
   }
 }
 

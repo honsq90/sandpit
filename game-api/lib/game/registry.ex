@@ -18,49 +18,64 @@ defmodule Game.Registry do
   end
 
   @doc """
-  Looks up the player pid for `name` stored in `server`.
+  Looks up the player pid for `player` stored in `server`.
 
   Returns `{:ok, pid}` if the player exists, `:error` otherwise.
   """
-  def lookup(server, name) do
-    GenServer.call(server, {:lookup, name})
+  def lookup(server, player) do
+    GenServer.call(server, {:lookup, player})
   end
 
   @doc """
-  Ensures there is a player associated with the given `name` in `server`.
+  Adds event for the player
   """
-  def create(server, name) do
-    GenServer.cast(server, {:create, name})
+  def add_event(server, player, event) do
+    GenServer.cast(server, {:add_event, player, event})
+  end
+
+  @doc """
+  Ensures there is a player associated with the given `player` in `server`.
+  """
+  def create(server, player) do
+    GenServer.cast(server, {:create, player})
   end
 
   ## Server Callbacks
 
   def init(:ok) do
-    names = %{}
+    players = %{}
     refs = %{}
-    {:ok, {names, refs}}
+    {:ok, {players, refs}}
   end
 
-  def handle_call({:lookup, name}, _from, {names, _} = state) do
-    {:reply, Map.fetch(names, name), state}
+  def handle_call({:lookup, player}, _from, {players, _} = state) do
+    {:reply, Map.fetch(players, player), state}
   end
 
-  def handle_cast({:create, name}, {names, refs}) do
-    if Map.has_key?(names, name) do
-      {:noreply, {names, refs}}
+  def handle_cast({:create, player}, {players, refs}) do
+    if Map.has_key?(players, player) do
+      {:noreply, {players, refs}}
     else
       {:ok, pid} = DynamicSupervisor.start_child(Game.PlayerSupervisor, Game.Player)
       ref = Process.monitor(pid)
-      refs = Map.put(refs, ref, name)
-      names = Map.put(names, name, pid)
-      {:noreply, {names, refs}}
+      refs = Map.put(refs, ref, player)
+      players = Map.put(players, player, pid)
+      {:noreply, {players, refs}}
     end
   end
 
-  def handle_info({:DOWN, ref, :process, _pid, _reason}, {names, refs}) do
-    {name, refs} = Map.pop(refs, ref)
-    names = Map.delete(names, name)
-    {:noreply, {names, refs}}
+  def handle_cast({:add_event, player, event}, {players, refs}) do
+    if Map.has_key?(players, player) do
+      player_pid = Map.get(players, player)
+      Game.Player.put(player_pid, event)
+    end
+    {:noreply, {players, refs}}
+  end
+
+  def handle_info({:DOWN, ref, :process, _pid, _reason}, {players, refs}) do
+    {player, refs} = Map.pop(refs, ref)
+    players = Map.delete(players, player)
+    {:noreply, {players, refs}}
   end
 
   def handle_info(_msg, state) do
