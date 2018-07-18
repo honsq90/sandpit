@@ -14,7 +14,11 @@ defmodule GameWeb.RoomChannel do
   def handle_info({:after_join, %{"color" => color}}, socket) do
     {:ok, existing_events} = Game.Registry.get_all_events(Game.Registry, color)
 
-    Enum.map(existing_events, fn (%{"event_type" => event_type} = event) ->
+    existing_events
+    |> Enum.sort(fn (%{"timestamp" => time1}, %{"timestamp" => time2}) ->
+      time1 < time2
+    end)
+    |> Enum.map(fn (%{"event_type" => event_type} = event) ->
       push(socket, event_type, event)
     end)
 
@@ -22,9 +26,11 @@ defmodule GameWeb.RoomChannel do
   end
 
   def handle_in("stroke_" <> _type = event_type, %{"color" => color} = event, socket) do
-    broadcast!(socket, event_type, event)
-    event_store = Map.put_new(event, "event_type", event_type)
-    Game.Registry.add_event(Game.Registry, color, event_store)
+    augmented_event = event
+      |> Map.put_new("event_type", event_type)
+      |> Map.put_new("timestamp", System.monotonic_time())
+    broadcast!(socket, event_type, augmented_event)
+    Game.Registry.add_event(Game.Registry, color, augmented_event)
     {:noreply, socket}
   end
 end
