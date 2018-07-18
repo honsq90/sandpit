@@ -27,6 +27,14 @@ defmodule Game.Registry do
   end
 
   @doc """
+  Get all events for other players
+
+  """
+  def get_all_events(server, player) do
+    GenServer.call(server, {:all_events, player})
+  end
+
+  @doc """
   Adds event for the player
   """
   def add_event(server, player, event) do
@@ -50,6 +58,14 @@ defmodule Game.Registry do
 
   def handle_call({:lookup, player}, _from, {players, _} = state) do
     {:reply, Map.fetch(players, player), state}
+  end
+
+  def handle_call({:all_events, exclude}, _from, {players, _} = state) do
+    all_events = Map.to_list(players)
+    |> Enum.filter(fn ({player, _pid}) -> player != exclude end)
+    |> Enum.flat_map(fn ({_player, player_pid}) -> Game.Player.get(player_pid) end)
+
+    {:reply, {:ok, all_events}, state}
   end
 
   def handle_cast({:create, player}, {players, refs}) do
