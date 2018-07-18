@@ -7,9 +7,10 @@ defmodule Game.Supervisor do
 
   def init(:ok) do
     children = [
+      {DynamicSupervisor, name: Game.PlayerSupervisor, strategy: :one_for_one},
       {Game.Registry, name: Game.Registry}
     ]
 
-    Supervisor.init(children, strategy: :one_for_one)
+    Supervisor.init(children, strategy: :one_for_all)
   end
 end

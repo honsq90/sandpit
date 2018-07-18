@@ -12,4 +12,8 @@ defmodule Game.PlayerTest do
     Game.Player.put(player, "milk")
     assert Game.Player.get(player) == ["milk"]
   end
+
+  test "are temporary workers" do
+    assert Supervisor.child_spec(Game.Player, []).restart == :temporary
+  end
 end

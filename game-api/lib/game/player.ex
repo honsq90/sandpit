@@ -1,5 +1,5 @@
 defmodule Game.Player do
-  use Agent
+  use Agent, restart: :temporary
 
   @doc """
   Starts a new player.

@@ -22,4 +22,13 @@ defmodule Game.RegistryTest do
     Agent.stop(player)
     assert Game.Registry.lookup(registry, "shopping") == :error
   end
+
+  test "removes player on crash", %{registry: registry} do
+    Game.Registry.create(registry, "shopping")
+    {:ok, player} = Game.Registry.lookup(registry, "shopping")
+
+    # Stop the player with non-normal reason
+    Agent.stop(player, :shutdown)
+    assert Game.Registry.lookup(registry, "shopping") == :error
+  end
 end
