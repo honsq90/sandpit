@@ -16,6 +16,10 @@ const getRandomColor = () => {
   return color;
 };
 
+const STROKE_STARTED = 'stroke_started';
+const STROKE_ADDED = 'stroke_added';
+const STROKE_ENDED = 'stroke_ended';
+
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
@@ -56,23 +60,29 @@ export class CanvasComponent implements AfterViewInit {
     this.mouseMove$ = fromEvent(canvas, 'mousemove');
     this.mouseUp$ = fromEvent(canvas, 'mouseup');
 
+
     this.mouseDown$.pipe(
       tap((mouseDown) => {
         mouseDown.preventDefault();
         mouseDown.stopPropagation();
+        this.publishToSocket(STROKE_STARTED, mouseDown);
       }),
       switchMap((_) => this.mouseMove$
         .pipe(
-          pairwise(),
-          takeUntil(this.mouseUp$)
-        ))
-    ).subscribe(([lastMove, currentMove]) => {
-      this.publishToSocket(currentMove);
-    });
+          takeUntil(this.mouseUp$
+            .pipe(
+              tap((mouseUp) => this.publishToSocket(STROKE_ENDED, mouseUp))
+            )),
+      )),
+    ).subscribe(
+      (currentMove) => {
+        this.publishToSocket(STROKE_ADDED, currentMove);
+      },
+    );
   }
 
-  publishToSocket(currentMove: MouseEvent) {
-    canvasChannel.push('stroke_added', {
+  publishToSocket(message: string, currentMove: MouseEvent) {
+    canvasChannel.push(message, {
       x: currentMove.offsetX,
       y: currentMove.offsetY,
       color: this.color,
@@ -95,26 +105,26 @@ export class CanvasComponent implements AfterViewInit {
         this.color = getRandomColor();
       });
 
-    const socketMessageEvents$ = canvasChannel
-      .messages('draw_stroke')
-      .pipe(
-        tap((event) => console.log(event)),
-    );
+    const strokeStartedEvent$ = canvasChannel.messages(STROKE_STARTED);
+    const strokeAddedEvent$ = canvasChannel.messages(STROKE_ADDED);
+    const strokeEndedEvent$ = canvasChannel.messages(STROKE_ENDED);
 
-    const socketMessageDrawStroke$ = socketMessageEvents$
+    const socketMessageDrawStroke$ = strokeStartedEvent$
       .pipe(
-        pairwise(),
+        switchMap((_) => strokeAddedEvent$
+          .pipe(
+            takeUntil(strokeEndedEvent$),
+            pairwise(),
+          )),
     );
 
     socketMessageDrawStroke$
-      .subscribe((messages: [DrawStrokeSocketEvent, DrawStrokeSocketEvent]) => {
-        // TODO: don't connect lines between breaks.
-        // TODO: concurrency with different colors
+      .subscribe((messages: [StrokeSocketEvent, StrokeSocketEvent]) => {
         this.drawStroke(this.ctx, messages, messages[0].color);
       });
   }
 }
 
-class DrawStrokeSocketEvent {
+class StrokeSocketEvent {
   constructor(public x: string, public y: string, public color: string) { }
 }

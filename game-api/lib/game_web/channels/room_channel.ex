@@ -10,13 +10,19 @@ defmodule GameWeb.RoomChannel do
   end
 
   def handle_in("stroke_added", stroke, socket) do
-    broadcast!(socket, "draw_stroke", stroke)
+    broadcast!(socket, "stroke_added", stroke)
     {:noreply, socket}
   end
 
-  # def handle_in("stroke_added", %{ "x" => x, "y" => y }, socket) do
-  #   broadcast!(socket, "draw_stroke", %{ x: x, y: y, color: socket.assigns[:color]})
-  #   {:noreply, socket}
-  # end
+  def handle_in("stroke_started", stroke, socket) do
+    broadcast!(socket, "stroke_started", stroke)
+    {:noreply, socket}
+  end
+
+  def handle_in("stroke_ended", stroke, socket) do
+    broadcast!(socket, "stroke_ended", stroke)
+    {:noreply, socket}
+  end
+
 
 end
