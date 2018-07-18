@@ -2,7 +2,7 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Observable, fromEvent } from 'rxjs';
 import { PhoenixSocket } from '../lib/phoenix-rxjs';
 
-import { switchMap, takeUntil, pairwise, tap } from 'rxjs/operators';
+import { switchMap, takeUntil, pairwise, tap, mergeMap, filter } from 'rxjs/operators';
 
 const phoenixSocket = new PhoenixSocket('ws://localhost:4000/socket');
 const canvasChannel = phoenixSocket.channel('rooms:canvas');
@@ -106,16 +106,24 @@ export class CanvasComponent implements AfterViewInit {
       });
 
     const strokeStartedEvent$ = canvasChannel.messages(STROKE_STARTED);
-    const strokeAddedEvent$ = canvasChannel.messages(STROKE_ADDED);
-    const strokeEndedEvent$ = canvasChannel.messages(STROKE_ENDED);
 
     const socketMessageDrawStroke$ = strokeStartedEvent$
       .pipe(
-        switchMap((_) => strokeAddedEvent$
-          .pipe(
-            takeUntil(strokeEndedEvent$),
-            pairwise(),
-          )),
+        mergeMap((strokeStarted: StrokeSocketEvent) => {
+          const strokeAddedEvent$ = canvasChannel.messages(STROKE_ADDED)
+            .pipe(
+              filter((stroke: StrokeSocketEvent) => stroke.color === strokeStarted.color),
+            );
+          const strokeEndedEvent$ = canvasChannel.messages(STROKE_ENDED)
+            .pipe(
+              filter((stroke: StrokeSocketEvent) => stroke.color === strokeStarted.color),
+          );
+          return strokeAddedEvent$
+            .pipe(
+              takeUntil(strokeEndedEvent$),
+              pairwise(),
+          );
+        }),
     );
 
     socketMessageDrawStroke$
