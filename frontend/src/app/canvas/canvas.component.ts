@@ -103,7 +103,7 @@ export class CanvasComponent implements AfterViewInit {
     const canvasChannel = phoenixSocket.channel('rooms:canvas', { color: this.color });
     this.canvasChannel = canvasChannel;
     canvasChannel.join()
-      .subscribe((_) => {
+      .subscribe((_response) => {
         this.socketPending = false;
       });
 
