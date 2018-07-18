@@ -1,11 +1,15 @@
 defmodule Game.PlayerTest do
   use ExUnit.Case, async: true
 
-  test "stores values into array" do
-    {:ok, bucket} = Game.Player.start_link([])
-    assert Game.Player.get(bucket) == []
+  setup do
+    {:ok, player} = Game.Player.start_link([])
+    %{player: player}
+  end
 
-    Game.Player.put(bucket, "milk")
-    assert Game.Player.get(bucket) == ["milk"]
+  test "stores values into array", %{player: player} do
+    assert Game.Player.get(player) == []
+
+    Game.Player.put(player, "milk")
+    assert Game.Player.get(player) == ["milk"]
   end
 end
