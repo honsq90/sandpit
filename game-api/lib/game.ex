@@ -17,7 +17,7 @@ defmodule Game do
     children = [
       # Start the endpoint when the application starts
       supervisor(GameWeb.Endpoint, []),
-      Game.Supervisor,
+      Game.Supervisor
       # Start your own worker by calling: Game.Worker.start_link(arg1, arg2, arg3)
       # worker(Game.Worker, [arg1, arg2, arg3]),
     ]

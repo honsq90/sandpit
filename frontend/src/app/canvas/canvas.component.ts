@@ -4,7 +4,9 @@ import { PhoenixSocket, PhoenixChannel } from '../lib/phoenix-rxjs';
 
 import { switchMap, takeUntil, pairwise, tap, mergeMap, filter, merge, map } from 'rxjs/operators';
 
-const phoenixSocket = new PhoenixSocket(`wss://7777b1b8.au.ngrok.io/socket`);
+const socketUrl = `ws://${window.location.host}/socket`;
+// const url = `wss://7777b1b8.au.ngrok.io/socket`;
+const phoenixSocket = new PhoenixSocket(socketUrl);
 
 const getRandomColor = () => {
   const letters = '0123456789ABCDEF';

@@ -6,6 +6,7 @@
 /cover
 /doc
 /.fetch
+/.elixir_ls
 *.ez
 *.beam
 # Generated on crash by the VM

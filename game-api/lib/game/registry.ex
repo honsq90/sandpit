@@ -61,9 +61,10 @@ defmodule Game.Registry do
   end
 
   def handle_call({:all_events, exclude}, _from, {players, _} = state) do
-    all_events = Map.to_list(players)
-    |> Enum.filter(fn ({player, _pid}) -> player != exclude end)
-    |> Enum.flat_map(fn ({_player, player_pid}) -> Game.Player.get(player_pid) end)
+    all_events =
+      Map.to_list(players)
+      |> Enum.filter(fn {player, _pid} -> player != exclude end)
+      |> Enum.flat_map(fn {_player, player_pid} -> Game.Player.get(player_pid) end)
 
     {:reply, {:ok, all_events}, state}
   end
@@ -85,6 +86,7 @@ defmodule Game.Registry do
       player_pid = Map.get(players, player)
       Game.Player.put(player_pid, event)
     end
+
     {:noreply, {players, refs}}
   end
 
