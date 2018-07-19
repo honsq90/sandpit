@@ -2,6 +2,9 @@
 
 Here be where I play with new tech stuff.
 
+## Front-end
+
+
 ### Libraries Used
 
 * Angular 6 (upgraded from Angular 5)
@@ -22,13 +25,13 @@ Here be where I play with new tech stuff.
 * [ngrx Store + Effects tutorials](https://www.youtube.com/playlist?list=PLW2eQOsUPlWJRfWGOi9gZdc3rE4Fke0Wv)
 * [Pending Issues around official Mock Store](https://github.com/ngrx/platform/issues/915)
 
-## Game API
+## Backend Game API
 
 ### Libraries Used
 * Phoenix 1.3
 * Elixir 1.6.5
 * Elixir Supervisors + GenServers for storing player state
-* Phoenix Channels/WebSockets for handling and broadcast to other players
+* Phoenix Channels/WebSockets for handling and broadcasting to other players
 
 Created with `mix phx.new game-api --module Game --app game --no-brunch --no-html  --no-ecto`
 
