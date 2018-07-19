@@ -1,4 +1,6 @@
-# NgrxPractice
+# Sandpit
+
+Here be where I play with new tech stuff.
 
 ### Libraries Used
 
@@ -23,7 +25,7 @@
 ## Game API
 
 ### Libraries Used
-* Phoenix 1.4
+* Phoenix 1.3
 * Elixir 1.6.5
 * Elixir Supervisors + GenServers for storing player state
 * Phoenix Channels/WebSockets for handling and broadcast to other players
