@@ -1,10 +1,10 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { Observable, fromEvent } from 'rxjs';
+import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Observable, fromEvent, pipe } from 'rxjs';
 import { PhoenixSocket, PhoenixChannel } from '../lib/phoenix-rxjs';
 
-import { switchMap, takeUntil, pairwise, tap, mergeMap, filter } from 'rxjs/operators';
+import { switchMap, takeUntil, pairwise, tap, mergeMap, filter, merge, map } from 'rxjs/operators';
 
-const phoenixSocket = new PhoenixSocket('ws://localhost:4000/socket');
+const phoenixSocket = new PhoenixSocket(`ws://${window.location.hostname}:4000/socket`);
 
 const getRandomColor = () => {
   const letters = '0123456789ABCDEF';
@@ -19,6 +19,42 @@ const STROKE_STARTED = 'stroke_started';
 const STROKE_ADDED = 'stroke_added';
 const STROKE_ENDED = 'stroke_ended';
 
+interface StrokeMove {
+  offsetX: number;
+  offsetY: number;
+}
+
+const getTouchPos = (canvasDom, touchEvent) => {
+  const rect = canvasDom.getBoundingClientRect();
+  return {
+    offsetX: touchEvent.changedTouches[0].clientX - rect.left,
+    offsetY: touchEvent.changedTouches[0].clientY - rect.top
+  };
+};
+
+const getMousePos = (mouseEvent: MouseEvent) => {
+  return {
+    offsetX: mouseEvent.offsetX,
+    offsetY: mouseEvent.offsetY,
+  };
+};
+const mapMouseEventToStrokeMove = () => map((mouseEvent: MouseEvent) => getMousePos(mouseEvent));
+const mapTouchEventToStrokeMove = (canvas) => map((touchEvent: TouchEvent) => getTouchPos(canvas, touchEvent));
+const mouseEventPreventDefault = () => tap((event: MouseEvent) => {
+  event.preventDefault();
+  event.stopPropagation();
+});
+
+const touchEventOperators = (canvas) => pipe(
+  tap((touchEvent: TouchEvent) => {
+    if (touchEvent.target === canvas) {
+      touchEvent.preventDefault();
+    }
+  }),
+  filter((touchEvent: TouchEvent) => touchEvent.changedTouches.length > 0),
+  mapTouchEventToStrokeMove(canvas),
+);
+
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
@@ -28,10 +64,12 @@ export class CanvasComponent implements AfterViewInit {
   @ViewChild('appCanvas') canvas;
   @ViewChild('appCanvasContainer') canvasContainer;
 
+  constructor(private ref: ChangeDetectorRef) { }
+
   ctx: CanvasRenderingContext2D;
-  mouseDown$: Observable<MouseEvent>;
-  mouseMove$: Observable<MouseEvent>;
-  mouseUp$: Observable<MouseEvent>;
+  mouseDown$: Observable<StrokeMove>;
+  mouseMove$: Observable<StrokeMove>;
+  mouseUp$: Observable<StrokeMove>;
   color: string;
   socketPending = true;
   canvasChannel: PhoenixChannel;
@@ -56,31 +94,39 @@ export class CanvasComponent implements AfterViewInit {
   }
 
   handleCanvas(canvas) {
-    this.mouseDown$ = fromEvent(canvas, 'mousedown');
-    this.mouseMove$ = fromEvent(canvas, 'mousemove');
-    this.mouseUp$ = fromEvent(canvas, 'mouseup');
+
+    this.mouseDown$ = fromEvent<MouseEvent>(canvas, 'mousedown').pipe(
+      mouseEventPreventDefault(),
+      mapMouseEventToStrokeMove(),
+      merge(fromEvent(canvas, 'touchstart').pipe(touchEventOperators(canvas))),
+    );
+
+    this.mouseMove$ = fromEvent<MouseEvent>(canvas, 'mousemove').pipe(
+      mapMouseEventToStrokeMove(),
+      merge(fromEvent(canvas, 'touchmove').pipe(touchEventOperators(canvas))),
+    );
+
+    this.mouseUp$ = fromEvent<MouseEvent>(canvas, 'mouseup').pipe(
+      mapMouseEventToStrokeMove(),
+      merge(fromEvent(canvas, 'touchend').pipe(touchEventOperators(canvas))),
+    );
 
     this.mouseDown$.pipe(
       tap((mouseDown) => {
-        mouseDown.preventDefault();
-        mouseDown.stopPropagation();
         this.publishToSocket(STROKE_STARTED, mouseDown);
       }),
       switchMap((_) => this.mouseMove$
         .pipe(
-          takeUntil(this.mouseUp$
-            .pipe(
-              tap((mouseUp) => this.publishToSocket(STROKE_ENDED, mouseUp))
-            )),
+          takeUntil(this.mouseUp$.pipe(
+            tap((mouseUp) => this.publishToSocket(STROKE_ENDED, mouseUp)),
+          )),
       )),
-    ).subscribe(
-      (currentMove) => {
-        this.publishToSocket(STROKE_ADDED, currentMove);
-      },
-    );
+    ).subscribe((currentMove) => {
+      this.publishToSocket(STROKE_ADDED, currentMove);
+    });
   }
 
-  publishToSocket(message: string, currentMove: MouseEvent) {
+  publishToSocket(message: string, currentMove: StrokeMove) {
     this.canvasChannel.push(message, {
       x: currentMove.offsetX,
       y: currentMove.offsetY,
@@ -105,6 +151,7 @@ export class CanvasComponent implements AfterViewInit {
     canvasChannel.join()
       .subscribe((_response) => {
         this.socketPending = false;
+        this.ref.detectChanges();
       });
 
     const strokeStartedEvent$ = canvasChannel.messages(STROKE_STARTED);

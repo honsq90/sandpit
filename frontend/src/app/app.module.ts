@@ -18,8 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CanvasComponent } from './canvas/canvas.component';
 
 const ROUTES: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'canvas', component: CanvasComponent },
+  { path: '', component: CanvasComponent },
+  { path: 'sticky', component: HomeComponent },
   {
     path: 'todos',
     loadChildren: '../features/todos/todos.module#TodosModule'
