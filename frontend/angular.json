@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngrx-practice": {
+    "sandpit": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -30,13 +30,13 @@
             "production": {
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
+              "namedChunks": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
+              "vendorChunk": true,
+              "aot": false,
+              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/config/environments/environment.ts",
@@ -49,20 +49,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngrx-practice:build",
+            "browserTarget": "sandpit:build",
             "proxyConfig": "proxy.conf.js",
             "disableHostCheck": true
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngrx-practice:build:production"
+              "browserTarget": "sandpit:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngrx-practice:build"
+            "browserTarget": "sandpit:build"
           }
         },
         "lint": {
@@ -80,7 +80,7 @@
       }
     }
   },
-  "defaultProject": "ngrx-practice",
+  "defaultProject": "sandpit",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
