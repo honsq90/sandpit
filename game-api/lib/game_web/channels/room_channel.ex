@@ -13,7 +13,7 @@ defmodule GameWeb.RoomChannel do
 
   def handle_info({:after_join, %{"color" => color}}, socket) do
     {:ok, existing_events} = Game.Registry.get_all_events(Game.Registry, color)
-
+    IO.inspect Enum.count(existing_events)
     existing_events
     |> Enum.sort(fn (%{"timestamp" => time1}, %{"timestamp" => time2}) ->
       time1 < time2
