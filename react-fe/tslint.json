@@ -6,12 +6,16 @@
   ],
   "jsRules": {
     "arrow-parens": true,
+    "trailing-comma": true,
+    "object-literal-key-quotes": [true, "as-needed"],
   },
   "rules": {
+    "object-literal-key-quotes": [true, "as-needed"],
     "only-arrow-functions": true,
     "variable-name": false,
     "function-name": false,
     "jsx-no-lambda": false,
+    "trailing-comma": true,
   },
   "rulesDirectory": []
 }

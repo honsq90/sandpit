@@ -1,13 +1,15 @@
+const { defaults } = require('jest-config');
 module.exports = {
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js"
-  ],
-  "transform": {
+  // ...
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
+  // ...
+  setupTestFrameworkScriptFile: "<rootDir>/config/setupJest.js",
+  transform: {
     "^.+\\.(ts|tsx)$": "<rootDir>/config/test-preprocessor.js"
   },
-  "testMatch": [
-    "**/*.spec.(ts|tsx)"
-  ]
-}
+  testRegex: '\\.spec\\.(ts|tsx)$',
+  collectCoverageFrom: [
+    'src/**/*.{ts|tsx}',
+    '!src/index.tsx',
+  ],
+};
