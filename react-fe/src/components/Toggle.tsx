@@ -15,20 +15,19 @@ interface ToggleState {
 
 const ToggleContext = React.createContext<ToggleState>({
   on: false,
-  toggle: () => {},
+  toggle: () => { },
 })
 
 const ToggleConsumer: React.SFC<{
   children: RenderPropChildren<ToggleState>
 }> = props => (
   <ToggleContext.Consumer>
-    {context => {
+    {(context) => {
       if (!context) {
         throw new Error(
           'Toggle.Consumer cannot be rendered outside the Toggle Component'
         )
       }
-
       return props.children(context)
     }}
   </ToggleContext.Consumer>

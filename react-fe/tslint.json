@@ -2,20 +2,22 @@
   "defaultSeverity": "error",
   "extends": [
     "tslint-config-airbnb",
-    "tslint-react",
+    "tslint-react"
   ],
   "jsRules": {
     "arrow-parens": true,
     "trailing-comma": true,
-    "object-literal-key-quotes": [true, "as-needed"],
+    "object-literal-key-quotes": [true, "as-needed"]
   },
   "rules": {
     "object-literal-key-quotes": [true, "as-needed"],
-    "only-arrow-functions": true,
+    "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
     "variable-name": false,
     "function-name": false,
     "jsx-no-lambda": false,
     "trailing-comma": true,
+    "jsx-no-multiline-js": false,
+    "semicolon": [true, "never"]
   },
   "rulesDirectory": []
 }

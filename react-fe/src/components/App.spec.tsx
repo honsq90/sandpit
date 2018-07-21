@@ -1,13 +1,12 @@
-import * as React from 'react';
-import { shallow } from 'enzyme';
+import * as React from 'react'
+import { shallow } from 'enzyme'
 
-import App from './App';
+import App from './App'
 
-describe('App', function () {
-  it('should render without throwing an error', function () {
-    const component = shallow(<App />);
+describe('App', () => {
+  it('should render without throwing an error', () => {
+    const component = shallow(<App />)
 
-    expect(component.find('Toggle')).toHaveLength(1);
-  });
-
-});
+    expect(component.find('Toggle')).toHaveLength(1)
+  })
+})
