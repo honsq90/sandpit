@@ -30,7 +30,6 @@
   "dependencies": {
     "helpful-decorators": "^1.7.2",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "src": "^1.1.2"
+    "react-dom": "^16.4.1"
   }
 }
