@@ -1,10 +1,16 @@
 import * as React from 'react'
 
-interface SlideContainerProps { }
+interface SlideContainerProps {
+  renderSlide: () => JSX.Element
+}
 
-const SlideContainer = ({ }: SlideContainerProps) => {
+const SlideContainer = ({ renderSlide }: SlideContainerProps) => {
   return (
-    <div>test</div>
+    <section className="hero is-info is-fullheight has-text-centered">
+      <div className="hero-body">
+        {renderSlide()}
+      </div>
+    </section>
   )
 }
 
