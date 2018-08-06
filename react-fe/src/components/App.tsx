@@ -28,7 +28,7 @@ class App extends React.Component<AppProps, AppState> {
       slideIndex: 0,
     }
 
-    this.keyUp = fromEvent(window, 'keyup').pipe(
+    this.keyUp = fromEvent(document, 'keydown').pipe(
       map((event: KeyboardEvent) => event.code),
       log(),
       share(),
@@ -37,19 +37,27 @@ class App extends React.Component<AppProps, AppState> {
     this.goNext$ = this.keyUp.pipe(
       filter((code: string) => code === 'ArrowRight' || code === 'Space')
     ).subscribe(() => {
-      const { slideIndex } = this.state
-      const newSlideIndex = Math.min(slides.length - 1, slideIndex + 1)
-      this.setState({ slideIndex: newSlideIndex })
+      this.goNext()
     })
 
     this.goBack$ = this.keyUp.pipe(
       filter((code: string) => code === 'ArrowLeft')
     ).subscribe(() => {
-      const { slideIndex } = this.state
-      const newSlideIndex = Math.max(0, slideIndex - 1)
-      this.setState({ slideIndex: newSlideIndex })
+      this.goBack()
     })
 
+  }
+
+  goBack() {
+    const { slideIndex } = this.state
+    const newSlideIndex = Math.max(0, slideIndex - 1)
+    this.setState({ slideIndex: newSlideIndex })
+  }
+
+  goNext() {
+    const { slideIndex } = this.state
+    const newSlideIndex = Math.min(slides.length - 1, slideIndex + 1)
+    this.setState({ slideIndex: newSlideIndex })
   }
 
   componentWillUnmount() {
@@ -60,7 +68,7 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     const { slideIndex } = this.state
     return (
-      <main>
+      <main onClick={() => this.goNext()}>
         <SlideContainer renderSlide={slides[slideIndex]} />
       </main>
     )
