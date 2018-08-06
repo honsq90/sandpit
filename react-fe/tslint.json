@@ -7,17 +7,32 @@
   "jsRules": {
     "arrow-parens": true,
     "trailing-comma": true,
-    "object-literal-key-quotes": [true, "as-needed"]
+    "object-literal-key-quotes": [
+      true,
+      "as-needed"
+    ]
   },
   "rules": {
-    "object-literal-key-quotes": [true, "as-needed"],
-    "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+    "object-literal-key-quotes": [
+      true,
+      "as-needed"
+    ],
+    "only-arrow-functions": [
+      true,
+      "allow-declarations",
+      "allow-named-functions"
+    ],
     "variable-name": false,
     "function-name": false,
     "jsx-no-lambda": false,
     "trailing-comma": true,
     "jsx-no-multiline-js": false,
-    "semicolon": [true, "never"]
+    "semicolon": [
+      true,
+      "never"
+    ],
+    "ter-arrow-parens": true,
+    "arrow-parens": true
   },
   "rulesDirectory": []
 }
