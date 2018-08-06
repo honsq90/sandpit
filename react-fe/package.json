@@ -28,6 +28,7 @@
     "typescript": "^2.9.2"
   },
   "dependencies": {
+    "bulma": "^0.7.1",
     "helpful-decorators": "^1.7.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
