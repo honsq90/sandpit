@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const Slide1 = () => (
+export default () => (
   <div className="container">
     <h1 className="title">
       Moving away from Selenium
@@ -10,5 +10,3 @@ const Slide1 = () => (
     </h2>
   </div>
 )
-
-export default Slide1

@@ -23,3 +23,23 @@ test('Should proceed back & forth through slides', async (t) => {
   await t.expect(hasApiErrors(printed)).notOk('Expected no api errors at any point')
 
 })
+
+test('Should proceed through the correct order', async (t) => {
+
+  const slideTitles = [
+    'Moving away from Selenium',
+    'Selenium is flakey',
+    'False Positives',
+    'Selenium Architecture',
+  ]
+
+  slideTitles.forEach(async (title, index) => {
+    await t
+      .expect(Selector('h1').innerText).eql(title)
+      .takeScreenshot(`${index + 1}-${title}.png`)
+      .pressKey('right')
+  })
+
+  await t.expect(hasApiErrors()).notOk('Expected no api errors at any point')
+
+})

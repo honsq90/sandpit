@@ -1,14 +1,18 @@
-import * as React from 'react'
 import 'bulma/css/bulma.css'
+import * as React from 'react'
+import { fromEvent, Observable, Subscription } from 'rxjs'
+import { filter, map, share } from 'rxjs/operators'
 import SlideContainer from './SlideContainer'
 import Slide1 from './slides/Slide1'
 import Slide2 from './slides/Slide2'
-import { fromEvent, Subscription, Observable } from 'rxjs'
-import { map, filter, share } from 'rxjs/operators'
+import Slide3 from './slides/Slide3'
+import Slide4 from './slides/Slide4'
 
 const slides = [
   Slide1,
   Slide2,
+  Slide3,
+  Slide4,
 ]
 
 interface AppProps { }
