@@ -7,16 +7,18 @@ fixture`Basic Slides`
   .page(hostUrl)
   .requestHooks(apiLogger)
 
-test('Should proceed through slides', async (t) => {
+test('Should proceed back & forth through slides', async (t) => {
   const printed = []
 
   await t
     .expect(Selector('h1').exists).ok()
     .expect(Selector('h1').innerText).eql('Moving away from Selenium')
-    .click(Selector('h1'))
     .pressKey('right')
     .expect(Selector('h1').exists).ok()
     .expect(Selector('h1').innerText).eql('Selenium is flakey')
+    .pressKey('left')
+    .expect(Selector('h1').exists).ok()
+    .expect(Selector('h1').innerText).eql('Moving away from Selenium')
 
   await t.expect(hasApiErrors(printed)).notOk('Expected no api errors at any point')
 

@@ -4,8 +4,7 @@ import SlideContainer from './SlideContainer'
 import Slide1 from './slides/Slide1'
 import Slide2 from './slides/Slide2'
 import { fromEvent, Subscription, Observable } from 'rxjs'
-import { tap, map, filter, share } from 'rxjs/operators'
-import { log } from '../lib/pipe-console'
+import { map, filter, share } from 'rxjs/operators'
 
 const slides = [
   Slide1,
@@ -29,19 +28,18 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     this.keyUp = fromEvent(document, 'keydown').pipe(
-      map((event: KeyboardEvent) => event.code),
-      log(),
+      map((event: KeyboardEvent) => event.key),
       share(),
     )
 
     this.goNext$ = this.keyUp.pipe(
-      filter((code: string) => code === 'ArrowRight' || code === 'Space')
+      filter((key: string) => key === 'ArrowRight' || key === 'Space')
     ).subscribe(() => {
       this.goNext()
     })
 
     this.goBack$ = this.keyUp.pipe(
-      filter((code: string) => code === 'ArrowLeft')
+      filter((key: string) => key === 'ArrowLeft')
     ).subscribe(() => {
       this.goBack()
     })
