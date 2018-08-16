@@ -2,23 +2,45 @@ import 'bulma/css/bulma.css'
 import * as React from 'react'
 import { fromEvent, Observable, Subscription } from 'rxjs'
 import { filter, map, share } from 'rxjs/operators'
+import { detect } from 'detect-browser'
+
 import SlideContainer from './SlideContainer'
-import Slide1 from './slides/Slide1'
+import Slide0 from './slides/Slide0'
 import Slide2 from './slides/Slide2'
 import Slide3 from './slides/Slide3'
 import Slide4 from './slides/Slide4'
+import Slide1 from './slides/Slide1'
+import Slide5 from './slides/Slide5'
+import Slide6 from './slides/Slide6'
+import Slide7 from './slides/Slide7'
+import Slide8 from './slides/Slide8'
+import Slide9 from './slides/Slide9'
+import Slide10 from './slides/Slide10'
+import Slide11 from './slides/Slide11'
 
 const slides = [
+  Slide0,
   Slide1,
   Slide2,
   Slide3,
   Slide4,
+  Slide5,
+  Slide6,
+  Slide7,
+  Slide8,
+  Slide9,
+  Slide10,
+  Slide11,
 ]
 
 interface AppProps { }
 interface AppState {
   slideIndex: number
 }
+const KEYCODE_SPACE = 32
+const KEYCODE_RIGHT = 39
+const KEYCODE_LEFT = 37
+
 class App extends React.Component<AppProps, AppState> {
 
   keyUp: Observable<KeyboardEvent>
@@ -31,19 +53,23 @@ class App extends React.Component<AppProps, AppState> {
       slideIndex: 0,
     }
 
+    Object.defineProperty(window, 'testcafe', {
+      value: detect()
+    })
+
     this.keyUp = fromEvent(document, 'keydown').pipe(
-      map((event: KeyboardEvent) => event.key),
+      map((event: KeyboardEvent) => event.keyCode),
       share(),
     )
 
     this.goNext$ = this.keyUp.pipe(
-      filter((key: string) => key === 'ArrowRight' || key === 'Space')
+      filter((key: number) => key === KEYCODE_RIGHT || key === KEYCODE_SPACE)
     ).subscribe(() => {
       this.goNext()
     })
 
     this.goBack$ = this.keyUp.pipe(
-      filter((key: string) => key === 'ArrowLeft')
+      filter((key: number) => key === KEYCODE_LEFT)
     ).subscribe(() => {
       this.goBack()
     })

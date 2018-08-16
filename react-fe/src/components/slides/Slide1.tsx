@@ -3,10 +3,13 @@ import * as React from 'react'
 export default () => (
   <div className="container">
     <h1 className="title">
-      Moving away from Selenium
+      What this covers
     </h1>
-    <h2 className="subtitle">
-      By Shuqian Hon (SQ)
-    </h2>
+   <ul>
+     <li>Selenium as it is</li>
+     <li>Testing Outcomes</li>
+     <li>TestCafe and Cypress</li>
+     <li>Demo</li>
+   </ul>
   </div>
 )

@@ -1,4 +1,7 @@
 {
+  "exclude": [
+    "testcafe/**/*.spec.ts"
+  ],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,

@@ -1,13 +1,13 @@
 import { hostUrl } from '../environment'
 
 import { apiLogger, hasApiErrors } from '../utils/api-interceptor.js'
-import { Selector } from 'testcafe'
+import { Selector, ClientFunction } from 'testcafe'
 
 fixture`Basic Slides`
   .page(hostUrl)
   .requestHooks(apiLogger)
 
-test('Should proceed back & forth through slides', async (t) => {
+test('Should proceed back & forth through slides', async (t: TestController) => {
   const printed = []
 
   await t
@@ -15,7 +15,7 @@ test('Should proceed back & forth through slides', async (t) => {
     .expect(Selector('h1').innerText).eql('Moving away from Selenium')
     .pressKey('right')
     .expect(Selector('h1').exists).ok()
-    .expect(Selector('h1').innerText).eql('Selenium is flakey')
+    .expect(Selector('h1').innerText).eql('What this covers')
     .pressKey('left')
     .expect(Selector('h1').exists).ok()
     .expect(Selector('h1').innerText).eql('Moving away from Selenium')
@@ -24,19 +24,29 @@ test('Should proceed back & forth through slides', async (t) => {
 
 })
 
-test('Should proceed through the correct order', async (t) => {
+test('Should proceed through the correct order', async (t: TestController) => {
+
+  const browser = await ClientFunction(() => window['testcafe'])()
 
   const slideTitles = [
     'Moving away from Selenium',
+    'What this covers',
     'Selenium is flakey',
     'False Positives',
     'Selenium Architecture',
+    'Testing Outcomes',
+    'Alternatives',
+    'Benefits over Selenium',
+    'Pros & Cons for Cypress',
+    'Pros & Cons for TestCafe',
+    'What We Chose',
+    'Demos',
   ]
 
   slideTitles.forEach(async (title, index) => {
     await t
       .expect(Selector('h1').innerText).eql(title)
-      .takeScreenshot(`${index + 1}-${title}.png`)
+      .takeScreenshot(`${browser.name}-${browser.os}/${index}-${title}.png`)
       .pressKey('right')
   })
 
