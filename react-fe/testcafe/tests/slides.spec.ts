@@ -1,7 +1,8 @@
+import chalk from 'chalk'
+import { Selector, ClientFunction } from 'testcafe'
 import { hostUrl } from '../environment'
 
 import { apiLogger, hasApiErrors } from '../utils/api-interceptor.js'
-import { Selector, ClientFunction } from 'testcafe'
 
 fixture`Basic Slides`
   .page(hostUrl)
@@ -44,10 +45,15 @@ test('Should proceed through the correct order', async (t: TestController) => {
   ]
 
   slideTitles.forEach(async (title, index) => {
+
     await t
       .expect(Selector('h1').innerText).eql(title)
       .takeScreenshot(`${browser.name}-${browser.os}/${index}-${title}.png`)
       .pressKey('right')
+      .then(() => {
+        console.log(chalk.green(`   ✓ Passed for "${title}"!`))
+      })
+
   })
 
   await t.expect(hasApiErrors()).notOk('Expected no api errors at any point')
