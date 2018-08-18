@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-const testcafeLogoUrl = 'http://www.testingtoolsguide.net/wp-content/uploads/2018/02/testcafe.png'
-const cypressLogoUrl = 'https://www.cypress.io/img/logo-dark.36f3e062.png'
+const testcafeLogoUrl = 'http://localhost:4200/assets/testcafe.png'
+const cypressLogoUrl = 'http://localhost:4200/assets/cypress.png'
 
 export default () => (
   <div className="container">

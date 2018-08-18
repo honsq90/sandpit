@@ -8,7 +8,7 @@ export default () => (
    <ul>
      <li>Selenium as it is</li>
      <li>Testing Outcomes</li>
-     <li>TestCafe and Cypress</li>
+     <li>Alternatives to Selenium</li>
      <li>Demo</li>
    </ul>
   </div>

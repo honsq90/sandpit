@@ -8,8 +8,5 @@ export default () => (
     <h2 className="subtitle">
       By Shuqian Hon (SQ)
     </h2>
-    <h3>
-      sqhon@thoughtworks.com
-    </h3>
   </div>
 )

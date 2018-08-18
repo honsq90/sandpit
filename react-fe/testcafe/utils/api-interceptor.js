@@ -2,17 +2,13 @@ import { RequestLogger, RequestMock } from 'testcafe'
 import { values } from 'lodash'
 import chalk from 'chalk'
 
-const apiEnvironment = {
-  urls: ['/api']
-}
 const apiUrlFilter = (request) => {
-  const apiUrls = values(apiEnvironment.urls)
   return true
   // return apiUrls.some((url) => request.url.includes(url))
 }
-
+//DEMO
 export const apiLogger = RequestLogger(apiUrlFilter, {
-  // logRequestBody: true,
+  logRequestBody: true,
   logRequestHeaders: true,
   // stringifyRequestBody: true,
   logResponseHeaders: true,
@@ -20,16 +16,10 @@ export const apiLogger = RequestLogger(apiUrlFilter, {
   // stringifyResponseBody: true,
 })
 
-export const maskPassword = (request) => {
-  return {
-    ...request,
-    // body: request.body.replace(/password=([^&]*)/g, 'password=***')
-  }
-}
-
 export const logApiCall = (request, response) =>
   `${response.statusCode} for ${request.method.padStart(4)} ${request.url}`
 
+// DEMO
 export const hasApiErrors = (printed = []) => apiLogger.contains((r) => {
   const { request, response, id } = r
   const hasError = response.statusCode >= 400
@@ -38,7 +28,7 @@ export const hasApiErrors = (printed = []) => apiLogger.contains((r) => {
 
     if (hasError) {
       console.error(chalk.red(` ✖ ${apiLog}`))
-      console.error(maskPassword(request))
+      console.error(request)
       console.error(response)
     } else {
       console.log(chalk.green(` ✓ ${apiLog}`))

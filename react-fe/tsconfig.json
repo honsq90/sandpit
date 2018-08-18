@@ -6,11 +6,11 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
-    "target": "es5",
+    "target": "es2017",
     "module": "commonjs",
     "strict": true,
     "jsx": "react",
     "experimentalDecorators": true,
-    "lib": ["dom", "es2015"]
+    "lib": ["dom", "es2017"]
   }
 }

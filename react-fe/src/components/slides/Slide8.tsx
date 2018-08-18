@@ -13,7 +13,6 @@ export default () => (
       <li className="minus"> 100MB Electron app to download</li>
       <li className="minus"> Chrome only</li>
       <li className="minus"> Against page objects</li>
-      <li className="minus"> Syntax might be a little offputting</li>
     </ul>
 
   </div>

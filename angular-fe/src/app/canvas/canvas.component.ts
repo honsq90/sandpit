@@ -97,35 +97,39 @@ export class CanvasComponent implements AfterViewInit {
 
   handleCanvas(canvas) {
 
-    this.mouseDown$ = fromEvent<MouseEvent>(canvas, 'mousedown').pipe(
-      mouseEventPreventDefault(),
-      mapMouseEventToStrokeMove(),
-      merge(fromEvent(canvas, 'touchstart').pipe(touchEventOperators(canvas))),
-    );
+    this.mouseDown$ = fromEvent<MouseEvent>(canvas, 'mousedown')
+      .pipe(
+        mouseEventPreventDefault(),
+        mapMouseEventToStrokeMove(),
+        merge(fromEvent(canvas, 'touchstart').pipe(touchEventOperators(canvas))),
+      );
 
-    this.mouseMove$ = fromEvent<MouseEvent>(canvas, 'mousemove').pipe(
-      mapMouseEventToStrokeMove(),
-      merge(fromEvent(canvas, 'touchmove').pipe(touchEventOperators(canvas))),
-    );
+    this.mouseMove$ = fromEvent<MouseEvent>(canvas, 'mousemove')
+      .pipe(
+        mapMouseEventToStrokeMove(),
+        merge(fromEvent(canvas, 'touchmove').pipe(touchEventOperators(canvas))),
+      );
 
-    this.mouseUp$ = fromEvent<MouseEvent>(canvas, 'mouseup').pipe(
-      mapMouseEventToStrokeMove(),
-      merge(fromEvent(canvas, 'touchend').pipe(touchEventOperators(canvas))),
-    );
+    this.mouseUp$ = fromEvent<MouseEvent>(canvas, 'mouseup')
+      .pipe(
+        mapMouseEventToStrokeMove(),
+        merge(fromEvent(canvas, 'touchend').pipe(touchEventOperators(canvas))),
+      );
 
-    this.mouseDown$.pipe(
-      tap((mouseDown) => {
-        this.publishToSocket(STROKE_STARTED, mouseDown);
-      }),
-      switchMap((_) => this.mouseMove$
-        .pipe(
-          takeUntil(this.mouseUp$.pipe(
-            tap((mouseUp) => this.publishToSocket(STROKE_ENDED, mouseUp)),
+    this.mouseDown$
+      .pipe(
+        tap((mouseDown) => {
+          this.publishToSocket(STROKE_STARTED, mouseDown);
+        }),
+        switchMap((_) => this.mouseMove$
+          .pipe(
+            takeUntil(this.mouseUp$.pipe(
+              tap((mouseUp) => this.publishToSocket(STROKE_ENDED, mouseUp)),
+            )),
           )),
-      )),
-    ).subscribe((currentMove) => {
-      this.publishToSocket(STROKE_ADDED, currentMove);
-    });
+      ).subscribe((currentMove) => {
+        this.publishToSocket(STROKE_ADDED, currentMove);
+      });
   }
 
   publishToSocket(message: string, currentMove: StrokeMove) {
@@ -164,18 +168,18 @@ export class CanvasComponent implements AfterViewInit {
           const strokeAddedEvent$ = canvasChannel.messages(STROKE_ADDED)
             .pipe(
               filter((stroke: StrokeSocketEvent) => stroke.color === strokeStarted.color),
-          );
+            );
           const strokeEndedEvent$ = canvasChannel.messages(STROKE_ENDED)
             .pipe(
               filter((stroke: StrokeSocketEvent) => stroke.color === strokeStarted.color),
-          );
+            );
           return strokeAddedEvent$
             .pipe(
               takeUntil(strokeEndedEvent$),
               pairwise(),
-          );
+            );
         }),
-    );
+      );
 
     socketMessageDrawStroke$
       .subscribe((messages: [StrokeSocketEvent, StrokeSocketEvent]) => {

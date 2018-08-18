@@ -1,6 +1,6 @@
 import 'bulma/css/bulma.css'
 import * as React from 'react'
-import { fromEvent, Observable, Subscription } from 'rxjs'
+import { fromEvent, Observable, Subscription, interval } from 'rxjs'
 import { filter, map, share } from 'rxjs/operators'
 import { detect } from 'detect-browser'
 
@@ -17,6 +17,7 @@ import Slide8 from './slides/Slide8'
 import Slide9 from './slides/Slide9'
 import Slide10 from './slides/Slide10'
 import Slide11 from './slides/Slide11'
+import Slide12 from './slides/Slide12'
 
 const slides = [
   Slide0,
@@ -31,11 +32,13 @@ const slides = [
   Slide9,
   Slide10,
   Slide11,
+  Slide12,
 ]
 
 interface AppProps { }
 interface AppState {
-  slideIndex: number
+  slideIndex: number,
+  elapsed: number,
 }
 const KEYCODE_SPACE = 32
 const KEYCODE_RIGHT = 39
@@ -51,29 +54,41 @@ class App extends React.Component<AppProps, AppState> {
     super(props)
     this.state = {
       slideIndex: 0,
+      elapsed: 0,
     }
 
     Object.defineProperty(window, 'testcafe', {
       value: detect()
     })
 
-    this.keyUp = fromEvent(document, 'keydown').pipe(
-      map((event: KeyboardEvent) => event.keyCode),
-      share(),
-    )
+    this.keyUp = fromEvent(document, 'keydown')
+      .pipe(
+        map((event: KeyboardEvent) => event.keyCode),
+        share(),
+      )
 
-    this.goNext$ = this.keyUp.pipe(
-      filter((key: number) => key === KEYCODE_RIGHT || key === KEYCODE_SPACE)
-    ).subscribe(() => {
-      this.goNext()
-    })
+    this.goNext$ = this.keyUp
+      .pipe(
+        filter((key: number) => key === KEYCODE_RIGHT || key === KEYCODE_SPACE)
+      ).subscribe(() => {
+        this.goNext()
+      })
 
-    this.goBack$ = this.keyUp.pipe(
-      filter((key: number) => key === KEYCODE_LEFT)
-    ).subscribe(() => {
-      this.goBack()
-    })
+    this.goBack$ = this.keyUp
+      .pipe(
+        filter((key: number) => key === KEYCODE_LEFT)
+      ).subscribe(() => {
+        this.goBack()
+      })
+    this.startTimer()
 
+  }
+
+  startTimer() {
+    interval(1000)
+      .subscribe(() => {
+        this.setState({ elapsed: this.state.elapsed + 1 })
+      })
   }
 
   goBack() {
@@ -94,9 +109,14 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   render() {
-    const { slideIndex } = this.state
+    const { slideIndex, elapsed } = this.state
+    const minutes = `${Math.floor(elapsed / 60)}`.padStart(2, '0')
+    const seconds = `${(elapsed % 60)}`.padStart(2, '0')
     return (
       <main onClick={() => this.goNext()}>
+        <div id="timer">
+          {minutes}:{seconds}
+        </div>
         <SlideContainer renderSlide={slides[slideIndex]} />
       </main>
     )
