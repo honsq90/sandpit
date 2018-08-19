@@ -10,10 +10,10 @@ const apiUrlFilter = (request) => {
 export const apiLogger = RequestLogger(apiUrlFilter, {
   logRequestBody: true,
   logRequestHeaders: true,
-  // stringifyRequestBody: true,
+  stringifyRequestBody: true,
   logResponseHeaders: true,
-  // logResponseBody: true,
-  // stringifyResponseBody: true,
+  logResponseBody: true,
+  stringifyResponseBody: true,
 })
 
 export const logApiCall = (request, response) =>

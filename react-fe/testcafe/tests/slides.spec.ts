@@ -48,10 +48,10 @@ test('Should proceed through the correct order', async (t: TestController) => {
 
     await t
       .expect(Selector('h1').innerText).eql(title)
-      // .takeScreenshot(`${browser.name}-${browser.os}/${index}-${title}.png`)
+      .takeScreenshot(`${browser.name}-${browser.os}/${index}-${title}.png`)
       .pressKey('right')
       .then(() => {
-        console.log(chalk.green(`   ✓ Passed for "${title}"`))
+        console.log(chalk.green(`   ✓ Passed for "${title}" in ${browser.name}-${browser.os}`))
       })
 
   })
