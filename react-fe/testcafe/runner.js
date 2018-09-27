@@ -35,6 +35,7 @@ createTestCafe("localhost")
         return runner
             .src(files)
             .browsers(environment.browsers)
+            .concurrency(environment.concurrency)
             .reporter('spec')
             .reporter('xunit', stream)
             .screenshots(`test-reports/screenshots/`, true)

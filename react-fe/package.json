@@ -10,6 +10,7 @@
     "test": "jest --watch",
     "test:ci": "yarn lint && jest --ci --coverage",
     "testcafe": "node testcafe/runner.js",
+    "testcafe:all": "yarn testcafe --browsers all",
     "build": "parcel build ./src/index.html --public-url ./"
   },
   "devDependencies": {
