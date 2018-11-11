@@ -1,11 +1,11 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { Observable, fromEvent, pipe } from 'rxjs';
+import { Observable, fromEvent } from 'rxjs';
 import { PhoenixSocket, PhoenixChannel } from '../lib/phoenix-rxjs';
 
-import { switchMap, takeUntil, pairwise, tap, mergeMap, filter, merge, map } from 'rxjs/operators';
+import { switchMap, takeUntil, pairwise, tap, mergeMap, filter, merge } from 'rxjs/operators';
+import { mouseEventPreventDefault, mapMouseEventToStrokeMove, touchEventOperators } from './canvas.util';
 
 const socketUrl = `ws://${window.location.host}/socket`;
-// const url = `wss://7777b1b8.au.ngrok.io/socket`;
 const phoenixSocket = new PhoenixSocket(socketUrl);
 
 const getRandomColor = () => {
@@ -25,37 +25,6 @@ interface StrokeMove {
   offsetX: number;
   offsetY: number;
 }
-
-const getTouchPos = (canvasDom, touchEvent) => {
-  const rect = canvasDom.getBoundingClientRect();
-  return {
-    offsetX: touchEvent.changedTouches[0].clientX - rect.left,
-    offsetY: touchEvent.changedTouches[0].clientY - rect.top
-  };
-};
-
-const getMousePos = (mouseEvent: MouseEvent) => {
-  return {
-    offsetX: mouseEvent.offsetX,
-    offsetY: mouseEvent.offsetY,
-  };
-};
-const mapMouseEventToStrokeMove = () => map((mouseEvent: MouseEvent) => getMousePos(mouseEvent));
-const mapTouchEventToStrokeMove = (canvas) => map((touchEvent: TouchEvent) => getTouchPos(canvas, touchEvent));
-const mouseEventPreventDefault = () => tap((event: MouseEvent) => {
-  event.preventDefault();
-  event.stopPropagation();
-});
-
-const touchEventOperators = (canvas) => pipe(
-  tap((touchEvent: TouchEvent) => {
-    if (touchEvent.target === canvas) {
-      touchEvent.preventDefault();
-    }
-  }),
-  filter((touchEvent: TouchEvent) => touchEvent.changedTouches.length > 0),
-  mapTouchEventToStrokeMove(canvas),
-);
 
 @Component({
   selector: 'app-canvas',
