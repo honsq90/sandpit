@@ -10,3 +10,12 @@
 ## Links
 
 * [React + Parcel + Typescript starter](https://github.com/adhrinae/ts-react-parcel)
+
+## Commands
+
+```
+npm run testcafe -- --browsers chrome,firefox,safari --host START_URL
+npm run testcafe -- --browsers chrome:headless,firefox:headless --host START_URL
+```
+
+For more options, view `testcafe/environment.js`
