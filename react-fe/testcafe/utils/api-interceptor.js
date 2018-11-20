@@ -8,12 +8,8 @@ const apiUrlFilter = (request) => {
 }
 //DEMO
 export const apiLogger = RequestLogger(apiUrlFilter, {
-  logRequestBody: true,
   logRequestHeaders: true,
-  stringifyRequestBody: true,
   logResponseHeaders: true,
-  logResponseBody: true,
-  stringifyResponseBody: true,
 })
 
 export const logApiCall = (request, response) =>
